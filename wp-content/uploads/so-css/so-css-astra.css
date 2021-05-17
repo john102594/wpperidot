@@ -1,3 +1,6 @@
+.woocommerce ul.products li.product .ast-woo-product-category, .woocommerce-page ul.products li.product .ast-woo-product-category{
+		display: none;
+}
 .select_option,
 .select_option span {
   border-radius: 30%;
