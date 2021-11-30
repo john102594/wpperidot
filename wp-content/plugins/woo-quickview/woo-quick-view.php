@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name:   Quick View for WooCommerce
- * Plugin URI:    https://shapedplugin.com/plugin/woocommerce-quick-view-pro/
- * Description:   Quick View for WooCommerce allows your customers to quickly view product information in nice Popup without opening the product page. Products can easily be added to cart from popup.
- * Version:       1.0.9
+ * Plugin URI:    https://shapedplugin.com/plugin/woocommerce-quick-view-pro/?ref=1
+ * Description:   <strong>Quick View for WooCommerce</strong> allows you to add a quick view button in product loop so that visitors to quickly view product information (using AJAX) in a nice modal without opening the product page.
+ * Version:       2.0.2
  * Author:        ShapedPlugin
  * Author URI:    https://shapedplugin.com/
  * Text Domain:   woo-quick-view
  * Domain Path:   /languages
  * WC requires at least: 4.0
- * WC tested up to: 5.2.1
+ * WC tested up to: 5.9.0
  *
  * @package Woo_Quick_View
  */
@@ -48,7 +48,7 @@ if ( ! class_exists( 'SP_Woo_Quick_View' ) && ! class_exists( 'SP_Woo_Quick_View
 		 *
 		 * @var string
 		 */
-		public $version = '1.0.9';
+		public $version = '2.0.2';
 
 		/**
 		 * Router
@@ -131,8 +131,8 @@ if ( ! class_exists( 'SP_Woo_Quick_View' ) && ! class_exists( 'SP_Woo_Quick_View
 		/**
 		 * Define constant if not already set
 		 *
-		 * @param string      $name
-		 * @param string|bool $value
+		 * @param string      $name constant name.
+		 * @param string|bool $value constant value.
 		 */
 		public function define( $name, $value ) {
 			if ( ! defined( $name ) ) {
@@ -154,7 +154,7 @@ if ( ! class_exists( 'SP_Woo_Quick_View' ) && ! class_exists( 'SP_Woo_Quick_View
 		 * Quick view button position
 		 */
 		public function init_button_position() {
-			$wqv_button_position = sp_wqv_get_option( 'wqv_quick_view_button_position' );
+			$wqv_button_position = sp_wqv_get_option( 'wqvpro_quick_view_button_position' );
 
 			switch ( $wqv_button_position ) {
 				case 'before_add_to_cart':
@@ -184,8 +184,8 @@ if ( ! class_exists( 'SP_Woo_Quick_View' ) && ! class_exists( 'SP_Woo_Quick_View
 		/**
 		 * Add plugin action menu
 		 *
-		 * @param array  $links
-		 * @param string $file
+		 * @param array  $links action link.
+		 * @param string $file plugin file.
 		 *
 		 * @return array
 		 */
@@ -196,7 +196,7 @@ if ( ! class_exists( 'SP_Woo_Quick_View' ) && ! class_exists( 'SP_Woo_Quick_View
 
 				array_unshift( $links, $new_links );
 
-				$links['go_pro'] = sprintf( '<a target="_blank" href="%1$s" style="color: #35b747; font-weight: 700;">Go Premium!</a>', 'https://shapedplugin.com/plugin/woocommerce-quick-view-pro' );
+				$links['go_pro'] = sprintf( '<a target="_blank" href="%1$s" style="color: #35b747; font-weight: 700;">Go Premium!</a>', 'https://shapedplugin.com/plugin/woocommerce-quick-view-pro/?ref=1' );
 			}
 
 			return $links;
@@ -205,7 +205,7 @@ if ( ! class_exists( 'SP_Woo_Quick_View' ) && ! class_exists( 'SP_Woo_Quick_View
 		/**
 		 * Autoload class files on demand
 		 *
-		 * @param string $class requested class name
+		 * @param string $class requested class name.
 		 */
 		public function autoload( $class ) {
 			$name = explode( '_', $class );
@@ -250,14 +250,28 @@ if ( ! class_exists( 'SP_Woo_Quick_View' ) && ! class_exists( 'SP_Woo_Quick_View
 			$this->page()->sp_wqv_function();
 			$this->page()->sp_wqv_framework();
 			$this->router->includes();
+			add_action( 'activated_plugin', array( $this, 'redirect_help_page' ) );
+
+		}
+
+		/**
+		 * Redirect after active
+		 *
+		 * @param string $plugin The plugin help page.
+		 */
+		public function redirect_help_page( $plugin ) {
+			if ( SP_WQV_BASENAME === $plugin ) {
+				wp_safe_redirect( admin_url( 'admin.php?page=wqv_settings#tab=get-help' ) );
+				exit();
+			}
 		}
 
 		/**
 		 * Quick view button
 		 *
-		 * @param [type] $add_to_cart_url
+		 * @param [string] $add_to_cart_url add_to_cart_url.
 		 *
-		 * @return void
+		 * @return return
 		 */
 		public function sp_wqv_quick_view_button( $add_to_cart_url ) {
 
@@ -267,10 +281,11 @@ if ( ! class_exists( 'SP_Woo_Quick_View' ) && ! class_exists( 'SP_Woo_Quick_View
 			} else {
 				$product_id = $product->id;
 			}
-
-			$quick_view_button   = $this->sp_wqv_view_button( $product_id );
-			$wqv_button_position = sp_wqv_get_option( 'wqv_quick_view_button_position' );
-			if ( 'before_add_to_cart' == $wqv_button_position || 'above_add_to_cart' == $wqv_button_position ) {
+			$wqv_plugin_settings = get_option( '_sp_wqv_options' );
+			$enable_quick_view   = isset( $wqv_plugin_settings['wqvpro_enable_quick_view'] ) ? $wqv_plugin_settings['wqvpro_enable_quick_view'] : true;
+			$quick_view_button   = $enable_quick_view ? $this->sp_wqv_view_button( $product_id ) : '';
+			$wqv_button_position = isset( $wqv_plugin_settings['wqvpro_quick_view_button_position'] ) ? $wqv_plugin_settings['wqvpro_quick_view_button_position'] : 'after_add_to_cart';
+			if ( 'before_add_to_cart' === $wqv_button_position || 'above_add_to_cart' === $wqv_button_position ) {
 				$buttons_url = $quick_view_button . $add_to_cart_url;
 			} else {
 				$buttons_url = $add_to_cart_url . $quick_view_button;
@@ -282,8 +297,8 @@ if ( ! class_exists( 'SP_Woo_Quick_View' ) && ! class_exists( 'SP_Woo_Quick_View
 		/**
 		 * Quick view button content
 		 *
-		 * @param [type] $product_id
-		 * @return void
+		 * @param [int] $product_id product id.
+		 * @return statement
 		 */
 		public function sp_wqv_view_button( $product_id = null ) {
 			if ( ! $product_id ) {
@@ -294,14 +309,18 @@ if ( ! class_exists( 'SP_Woo_Quick_View' ) && ! class_exists( 'SP_Woo_Quick_View
 					$product_id = $product->id;
 				}
 			}
-
-			$close_button           = sp_wqv_get_option( 'wqv_popup_close_button' );
-			$quick_view_button_text = sp_wqv_get_option( 'wqv_quick_view_button_text' );
-			$wqv_button_position    = sp_wqv_get_option( 'wqv_quick_view_button_position' );
+			$settings               = get_option( '_sp_wqv_options' );
+			$close_button           = isset( $settings['wqvpro_popup_close_button'] ) ? $settings['wqvpro_popup_close_button'] : true;
+			$quick_view_button_text = isset( $settings['wqvpro_quick_view_button_text'] ) ? $settings['wqvpro_quick_view_button_text'] : 'Quick View';
+			$wqv_button_position    = isset( $settings['wqvpro_quick_view_button_position'] ) ? $settings['wqvpro_quick_view_button_position'] : 'after_add_to_cart';
+			$preloader              = isset( $settings['wqvpro_qv_preloader'] ) ? $settings['wqvpro_qv_preloader'] : true;
+			$preloader_label        = isset( $settings['wqvpro_loading_label'] ) ? $settings['wqvpro_loading_label'] : 'Loading...';
+			$image_lightbox         = isset( $settings['wqvpro_product_image_lightbox'] ) ? $settings['wqvpro_product_image_lightbox'] : false;
+			$image_lightbox         = $image_lightbox ? 1 : 0;
 
 			$outline = '';
 			if ( $product_id ) {
-				$outline .= '<a href="#" id="sp-wqv-view-button" class="button sp-wqv-view-button ' . $wqv_button_position . '" data-id="' . esc_attr( $product_id ) . '" data-effect="' . sp_wqv_get_option( 'wqv_popup_effect' ) . '" data-wqv=\'{"close_button": "' . $close_button . '" } \'>' . $quick_view_button_text . '</a>';
+				$outline .= '<a href="#" id="sp-wqv-view-button" class="button sp-wqv-view-button ' . $wqv_button_position . '" data-id="' . esc_attr( $product_id ) . '" data-effect="' . sp_wqv_get_option( 'wqvpro_popup_effect' ) . '" data-wqv=\'{"close_button": ' . $close_button . ', "lightbox": ' . $image_lightbox . ',"preloader": ' . $preloader . ',"preloader_label": "' . $preloader_label . '" } \'>' . $quick_view_button_text . '</a>';
 			}
 			return $outline;
 		}

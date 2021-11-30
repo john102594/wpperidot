@@ -1,3 +1,28 @@
+
+# BEGIN rlrssslReallySimpleSSL rsssl_version[5.2.0]
+<ifModule mod_headers.c>
+Header set Strict-Transport-Security "max-age=31536000" env=HTTPS
+Header set X-XSS-Protection "1; mode=block"
+Header set X-Content-Type-Options nosniff
+Header set X-Frame-Options DENY
+Header set Referrer-Policy: no-referrer-when-downgrade
+Header set Connection keep-alive
+</ifModule>
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://skkeep.com/$1 [R,L]
+</IfModule>
+
+
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{HTTPS} !=on [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+# END rlrssslReallySimpleSSL
 # BEGIN WordPress
 # Las directivas (líneas) entre «BEGIN WordPress» y «END WordPress» son
 # generadas dinámicamente y solo deberían ser modificadas mediante filtros de WordPress.

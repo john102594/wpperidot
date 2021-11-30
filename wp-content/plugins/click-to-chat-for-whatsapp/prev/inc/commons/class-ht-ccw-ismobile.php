@@ -1,11 +1,6 @@
 <?php
 /**
- * find mobile device or not ..
- * 
- * @fix
- *    if error realted to wp_is_mobile then 
- *        at construct - $this->is_mobile = $this->is_mobile();
- *        and uncomment - $this->is_mobile = $this->new_is_mobile();
+ * detect device -  mobile or not
  * 
  */
 
@@ -24,26 +19,9 @@ class HT_CCW_IsMobile {
 
     public function __construct() {
         
-        // $this->is_mobile = $this->is_mobile();
-        $this->is_mobile = $this->new_is_mobile();
+        $this->is_mobile = $this->is_mobile();
         
     }
-
-
-    /**
-     * 
-     * Check is mobile device or not
-     * wp_is_mobile - if true then 1, else 2
-     */
-    public function is_mobile() {
-        if ( wp_is_mobile() ) {
-            return $this->is_mobile = 1;
-        } else {
-            return $this->is_mobile = 2;
-        }
-    }
-
-
 
     /**
      * added this  -  an user mention that wp_is_mobile uncauched error
@@ -52,7 +30,7 @@ class HT_CCW_IsMobile {
      * Check is mobile device or not
      * wp_is_mobile - if true then 1, else 2
      */
-    public function new_is_mobile() {
+    public function is_mobile() {
         
         if ( function_exists( 'wp_is_mobile' ) ) {
             if ( wp_is_mobile() ) {
@@ -72,13 +50,10 @@ class HT_CCW_IsMobile {
 
 
     /**
-     * @uses $this -> new_is_mobile
+     * @uses $this -> is_mobile
      * 
-     * fallback for wp_is_mobile
-     * php way of find is mobile - but not with wordpress defined wp_is_mobile
-     * 
-     * wp_is_mobile is more efficient 
-     *  - uses if in user server it's cause Fatal error: Uncaught Error 
+     * php way of find is mobile
+     * fallback if wp_is_mobile is not defined 
      * @return boolean
      */
     public function php_is_mobile() {

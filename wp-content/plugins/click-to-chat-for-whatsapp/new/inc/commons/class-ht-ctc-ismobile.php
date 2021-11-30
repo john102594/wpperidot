@@ -50,11 +50,8 @@ class HT_CTC_IsMobile {
     /**
      * @uses $this -> is_mobile
      * 
-     * fallback for wp_is_mobile
-     * php way of find is mobile - but not with wordpress defined wp_is_mobile
-     * 
-     * wp_is_mobile is more efficient 
-     *  - uses if in user server cause Fatal error: Uncaught Error 
+     * php way of find is mobile
+     * fallback if wp_is_mobile is not defined 
      * @return boolean
      */
     public function php_is_mobile() {

@@ -1,11 +1,11 @@
-=== Starter Templates – Elementor, Beaver Builder, Gutenberg & Brizy Templates ===
+=== Starter Templates — Elementor, Gutenberg & Beaver Builder Templates ===
 Contributors: brainstormforce
 Donate link: https://wpastra.com/pro/
 Tags: Elementor,Beaver Builder,Templates,Gutenberg,Astra Starter Sites
 Requires at least: 4.4
 Requires PHP: 5.3
-Tested up to: 5.7
-Stable tag: 2.6.3
+Tested up to: 5.8
+Stable tag: 2.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,7 +63,7 @@ Businesses like restaurants, lawyers, agencies, interior designers, artist shops
 - [Gutenberg Free Website Templates](https://wpastra.com/ready-websites/?page-builder=gutenberg&category=free)
 - [Brizy Free Website Templates](https://wpastra.com/ready-websites/?page-builder=brizy&category=free)
 
-You can extend this library with premium ready-to-use website demos by purchasing one of the Agency Bundles, i.e. either the Mini Agency Bundle or the Agency Bundle.
+You can extend this library with premium ready-to-use website demos by purchasing one of the Astra Bundles, i.e. either the Essential Bundle or the Growth Bundle.
 
 = WHY PEOPLE LOVE THE ASTRA THEME? =
 
@@ -148,6 +148,107 @@ We are open to suggestions and would love to work on topics that our users are l
 7. Free Images by Pixabay right inside the WordPress media popup.
 
 == Changelog ==
+
+v2.7.5 - 27-October-2021
+- Fix: Elementor blocks not being imported due to missing required plugins.
+
+v2.7.4 - 26-October-2021
+- Fix: Fixed the issue with Elementor blocks contact form not being imported due to invalid form JSON file URL.
+
+v2.7.3 - 19-October-2021
+- Improvement: Validate the whitelisted host's URLs from the import process.
+
+v2.7.2 - 7-October-2021
+- Fix: No route was found matching the URL and request method.
+
+v2.7.1 - 7-October-2021
+- Security Improvement: Validate the site URL before processing the import request.
+- Security Improvement: Updated right file upload permission before importing images.
+
+v2.7.0 - 4-October-2021
+- New: Wireframe blocks for Gutenberg - [Doc](https://wpastra.com/docs/starter-templates-wireframe-blocks/)
+
+v2.6.22 - 7-September-2021
+- Fix: Contact Forms not appearing after the import process is complete.
+
+v2.6.21 - 13-August-2021
+- Improvement: Rectified the condition to load the scripts in other screens.
+- Fix: Starter template button not visible when gutenberg plugin is activated.
+
+v2.6.20 - 8-August-2021
+- Improvement: Better handling of 500 errors on the import screen.
+
+v2.6.19 - 2-August-2021
+- Fix: Fixed the "Customizer data is empty!" AJAX failed request while importing.
+- Fix: The Pixabay image library not visible for the multiple image instances.
+
+v2.6.18 - 28-July-2021
+- Improvement: Avoided loading a few scripts in the customizer screen.
+- Improvement: Free Images from Pixabay can be downloaded from the main grid too with the use of a download icon.
+- Fix: Updated the Quick Links to Upgrade the plugin, page builder wise.
+
+v2.6.17 - 22-July-2021
+- Improvement: Avoided loading the Gutenberg Blocks scripts in the customizer screen.
+- Fix: Fixed the missing 'Create Gallery' button in Media Popup for Elementor editor.
+
+v2.6.16 - 19-July-2021
+- Fix: Fixed the issue where Free Images by Pixabay were not available on Elementor Editor.
+
+v2.6.15 - 15-July-2021
+- Fix: Rectified the failing import process on multisite due to an issue introduced in v2.6.14
+- Fix: Fixed the broken invalid license document links.
+
+v2.6.14 - 13-July-2021
+- Improvement: Compatibility to WordPress 5.8.
+- Improvement: Improved the import process by reducing the body size of the AJAX calls for better performance.
+- Improvement: Added support for dark and light support for block patterns with improved sidebar UI.
+- Fix: Handle the white label support.
+
+v2.6.13 - 30-June-2021
+- Improvement: Updated the widget reset logic in which old widget moved to the inactive list.
+- Improvement: Quick Links UI improvements.
+- Improvement: Premium Templates UI improvements.
+
+v2.6.12 - 9-June-2021
+- Fix: Single pages not getting imported when no required plugin is associated to it.
+
+v2.6.11 - 3-June-2021
+- Improvement: Gutenberg Template library auto-syncs at regular intervals.
+- Improvement: Updated image download functionality.
+- Improvement: Added common functionality for extracting URLs from content.
+- Improvement: Added filter for debug logs generation.
+
+v2.6.10 - 24-May-2021
+- Fix: Starter Templates popup opens by default on every page load on Gutenberg pages.
+
+v2.6.9 - 22-May-2021
+- Fix: PHP Fatal error on 'Getting Started' page.
+
+v2.6.8 - 21-May-2021
+- Improvement: Added the dark and light mode support for the Elementor popup.
+- Improvement: Added retry import option for few cases.
+- Improvement: Improved error messages for AJAX requests.
+
+v2.6.7 - 19-May-2021
+- Improvement: Changed 'Agency' tag with 'Premium' for templates in library [Screenshot](https://share.bsf.io/rRuGrRjq)
+- Improvement: Get Agency Bundle button text will now be  'Get Access' [Screenshot](https://share.bsf.io/rRuGrRjq)
+- Improvement: All strings with Agency Bundle will now be Growth Bundle. [Screenshot](https://share.bsf.io/6qu86nY1)
+- Improvement: All strings with Mini Agency Bundle will now be Essential Bundle.
+
+v2.6.6 - 18-May-2021
+- Fix: Avoided the HTML being printed in one of the error message screens.
+- Improvement: Improved error message when the requests fail to reach Starter Templates' servers.
+
+v2.6.5 - 18-May-2021
+- Improvement: Added better error messages to the failed import process.
+
+v2.6.4 - 11-May-2021
+- Improvement: Added Quick links for a few important documents.
+- Improvement: Added dynamic category support for the Gutenberg templates.
+- Improvement: Removed color filter from Elementor block.
+- Improvement: Change the Block Editor name with Gutenberg.
+- Fix: Sync complete notice not closing on click.
+- Fix: Elementor demo does not import if we try to import multiple times.
 
 v2.6.3 - 4-May-2021
 - Improvement: Advanced Options UI improvement.

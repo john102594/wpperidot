@@ -77,7 +77,7 @@ class HT_CTC_Admin_Other_Settings {
         add_settings_field( 'ht_ctc_animations', 'Animations', array( $this, 'ht_ctc_animations_cb' ), 'ht_ctc_os_page_settings_sections_do', 'ht_ctc_os_settings_sections_add' );
         add_settings_field( 'ht_ctc_analytics', 'Analytics', array( $this, 'ht_ctc_analytics_cb' ), 'ht_ctc_os_page_settings_sections_do', 'ht_ctc_os_settings_sections_add' );
         add_settings_field( 'ht_ctc_webhooks', 'Webhooks', array( $this, 'ht_ctc_webhooks_cb' ), 'ht_ctc_os_page_settings_sections_do', 'ht_ctc_os_settings_sections_add' );
-        add_settings_field( 'ht_ctc_othersettings', 'Other Settings', array( $this, 'ht_ctc_othersettings_cb' ), 'ht_ctc_os_page_settings_sections_do', 'ht_ctc_os_settings_sections_add' );
+        add_settings_field( 'ht_ctc_othersettings', 'Advanced Settings', array( $this, 'ht_ctc_othersettings_cb' ), 'ht_ctc_os_page_settings_sections_do', 'ht_ctc_os_settings_sections_add' );
         
     }
 
@@ -94,9 +94,9 @@ class HT_CTC_Admin_Other_Settings {
         $dbrow = 'ht_ctc_othersettings';
 
         ?>
-        <ul class="collapsible" data-collapsible="accordion" id="ht_ctc_analytics">
-        <li class="active">
-        <div class="collapsible-header"><?php _e( 'Google Analytics, Facebook Pixel', 'click-to-chat-for-whatsapp' ); ?></div>
+        <ul class="collapsible ht_ctc_analytics" data-collapsible="accordion" id="ht_ctc_analytics">
+        <li class="">
+        <div class="collapsible-header"><?php _e( 'Google Analytics, Facebook Pixel, Google Ads Conversion', 'click-to-chat-for-whatsapp' ); ?></div>
         <div class="collapsible-body">
         
         <?php
@@ -143,9 +143,6 @@ class HT_CTC_Admin_Other_Settings {
             <?php
             }
         ?>
-        <!-- todo link ga4 -->
-        <!-- <p class="description ctc_ga4" style="margin-left:40px;"> <a target="_blank" href="https://holithemes.com/plugins/click-to-chat/google-analytics-4/"><?php _e( 'Google Analytics 4', 'click-to-chat-for-whatsapp' ); ?></a> </p> -->
-
         <p class="description"><?php _e( 'If Google Analytics installed creates an Event there', 'click-to-chat-for-whatsapp' ); ?> - <a target="_blank" href="https://holithemes.com/plugins/click-to-chat/google-analytics/"><?php _e( 'more info', 'click-to-chat-for-whatsapp' ); ?></a> </p>
         <br>
 
@@ -198,14 +195,20 @@ class HT_CTC_Admin_Other_Settings {
         </p>
         <?php
         }
-
-        // change function name
         ?>
-        <!-- call gtag_report_conversion function when user clicks on WhatsApp icon/button -->
         <p class="description"><?php _e( 'call gtag_report_conversion function, when user clicks', 'click-to-chat-for-whatsapp' ); ?> - <a target="_blank" href="https://holithemes.com/plugins/click-to-chat/google-ads-conversion/"><?php _e( 'more info', 'click-to-chat-for-whatsapp' ); ?></a> </p>
-        <p class="description">Beta feature. ( please contact us for suggestions, improvements. )</p>
-        <br>
+        <?php
 
+        do_action('ht_ctc_ah_admin_google_ads');
+
+        if ( ! defined( 'HT_CTC_PRO_VERSION' ) ) {
+            ?>
+            <br>
+            <p class="description">PRO - In pro version we can add Conversion ID, Conversion label direclty (no need to add gtag_report_conversion)</p>
+            <?php
+        }
+
+        ?>
 
         </div>
         </li>
@@ -222,14 +225,12 @@ class HT_CTC_Admin_Other_Settings {
         $hook_url = isset($options['hook_url']) ? esc_attr( $options['hook_url'] ) : '';
 
         ?>
-        <ul class="collapsible" data-collapsible="accordion" id="ht_ctc_analytics">
-        <li class="active">
+        <ul class="collapsible ht_ctc_webhooks" data-collapsible="accordion">
+        <li class="">
         <div class="collapsible-header"><?php _e( 'Webhooks', 'click-to-chat-for-whatsapp' ); ?></div>
         <div class="collapsible-body">
         
-        <p class="description" style="margin-bottom: 20px;">Integarte, Automation using Webhooks.</p>
-        <p class="description"><a target="_blank" href="https://holithemes.com/plugins/click-to-chat/webhooks/"><?php _e( 'Webhooks', 'click-to-chat-for-whatsapp' ); ?></a></p>
-        <br><br><br>
+        <p class="description" style="margin-bottom: 40px;"><?php _e( 'Integrate, Automation', 'click-to-chat-for-whatsapp' ); ?> <?php _e( 'using', 'click-to-chat-for-whatsapp' ); ?> <a target="_blank" href="https://holithemes.com/plugins/click-to-chat/webhooks/"><?php _e( 'Webhooks', 'click-to-chat-for-whatsapp' ); ?></a></p>
 
         <!-- Webhook URL -->
         <div class="row">
@@ -283,15 +284,18 @@ class HT_CTC_Admin_Other_Settings {
                     
             <span style="color:#039be5; cursor:pointer; font-size:16px;" 
             class="add_hook_value dashicons dashicons-plus-alt2 col s12" 
-            data-html='<div class="row"><div class="col s3"><p class="description"><?php _e( "Add Value", "click-to-chat-for-whatsapp" ); ?></p></div><div class="input-field col s9 m6"><input name="ht_ctc_othersettings[hook_v][]" value="" id="hook_v" type="text" class="input-margin"><label for="hook_v"><?php _e( "Value", "click-to-chat-for-whatsapp" ); ?></label></div></div>' 
+            data-html='<div class="row additional-value"><div class="col s3"><p class="description"><?php _e( "Add Value", "click-to-chat-for-whatsapp" ); ?></p></div><div class="input-field col s9 m6" style="display: flex;"><input name="ht_ctc_othersettings[hook_v][]" value="" id="hook_v" type="text" class="input-margin"><label for="hook_v"><?php _e( "Value", "click-to-chat-for-whatsapp" ); ?></label><span style="color:lightgrey; cursor:pointer;" class="hook_remove_value dashicons dashicons-no-alt"></span></div></div>' 
             ><?php _e( "Add Value", "click-to-chat-for-whatsapp" ); ?></span>
             
         </div>
+        <?php
+        if ( ! defined( 'HT_CTC_PRO_VERSION' ) ) {
+            ?>
+            <p class="description">Webhook Dynamic Varibales - {number}, {url}, {time} - <a target="_blank" href="https://holithemes.com/plugins/click-to-chat/pricing/">PRO</a></p>
+            <?php
+        }
+        ?>
 
-        <p class="description">New feature: since v3.3.1 ( please contact us for suggestions, improvements. )</p>
-        <br>
-
-        
         </div>
         </li>
         </ul>
@@ -306,26 +310,34 @@ class HT_CTC_Admin_Other_Settings {
         $show_effect = ( isset( $options['show_effect']) ) ? esc_attr( $options['show_effect'] ) : 'no-show-effects';
         $an_delay = ( isset( $options['an_delay']) ) ? esc_attr( $options['an_delay'] ) : '';
         $an_itr = ( isset( $options['an_itr']) ) ? esc_attr( $options['an_itr'] ) : '';
-        $show_effect_list = array(
-            'no-show-effects',
-            'From Center',
-            'From Corner',
-        );
 
+        $entry_effect_list = array(
+            'no-show-effects' => '--No-Show-Effects--',
+            'From Center' => 'Center (zoomIn)',
+            'From Corner' => 'Corner (corner of icon)', // js 
+            // // new
+            // 'bounceIn' => 'bounceIn',
+            // 'bounceInDown' => 'bounceInDown',
+            // 'bounceInUP' => 'bounceInUP',
+            // 'bounceInLeft' => 'bounceInLeft',
+            // 'bounceInRight' => 'bounceInRight',
+            // // 'bottomRight' => 'bottomRight', //add bounce effect
+        );
+        
         $an_type = ( isset( $options['an_type']) ) ? esc_attr( $options['an_type'] ) : '';
         
         $an_list = array(
-            'no-animation',
-            'bounce',
-            'flash',
-            'pulse',
-            'heartBeat',
-            'flip',
+            'no-animation' => '--No-Animation--',
+            'bounce' => 'Bounce',
+            'flash' => 'Flash',
+            'pulse' => 'Pulse',
+            'heartBeat' => 'HeartBeat',
+            'flip' => 'Flip',
         );
 
         ?>
-        <ul class="collapsible" data-collapsible="accordion" id="ht_ctc_animations">
-        <li class="active">
+        <ul class="collapsible ht_ctc_animations" data-collapsible="accordion">
+        <li class="">
         <div class="collapsible-header"><?php _e( 'Animations', 'click-to-chat-for-whatsapp' ); ?></div>
         <div class="collapsible-body">
 
@@ -342,9 +354,9 @@ class HT_CTC_Admin_Other_Settings {
                 <select name="ht_ctc_othersettings[an_type]" class="select_an_type">
                 <?php 
                 
-                foreach ( $an_list as $value ) {
+                foreach ( $an_list as $key => $value ) {
                 ?>
-                <option value="<?= $value ?>" <?= $an_type == $value ? 'SELECTED' : ''; ?> ><?= $value ?></option>
+                <option value="<?= $key ?>" <?= $an_type == $key ? 'SELECTED' : ''; ?> ><?= $value ?></option>
                 <?php
                 }
 
@@ -384,21 +396,20 @@ class HT_CTC_Admin_Other_Settings {
         <!-- Show effect -->
         <div class="row">
             <div class="col s6">
-                <p><?php _e( 'Show Effects', 'click-to-chat-for-whatsapp' ); ?></p>
+                <p><?php _e( 'Entry Effects', 'click-to-chat-for-whatsapp' ); ?></p>
             </div>
             <div class="input-field col s6">
                 <select name="ht_ctc_othersettings[show_effect]" class="show_effect">
                 <?php 
-                
-                foreach ( $show_effect_list as $value ) {
+                foreach ( $entry_effect_list as $key => $value ) {
                 ?>
-                <option value="<?= $value ?>" <?= $show_effect == $value ? 'SELECTED' : ''; ?> ><?= $value ?></option>
+                <option value="<?= $key ?>" <?= $show_effect == $key ? 'SELECTED' : ''; ?> ><?= $value ?></option>
                 <?php
                 }
 
                 ?>
                 </select>
-                <label><?php _e( 'How the Icon/Button displays', 'click-to-chat-for-whatsapp' ); ?></label>
+                <label><?php _e( 'Entrance Effects', 'click-to-chat-for-whatsapp' ); ?></label>
             </div>
         </div>
 
@@ -415,42 +426,43 @@ class HT_CTC_Admin_Other_Settings {
         $options = get_option('ht_ctc_othersettings');
         $dbrow = 'ht_ctc_othersettings';
 
+        $aria = (isset($options['aria'])) ? 1 : '';
+        $zindex = (isset($options['zindex'])) ? esc_attr($options['zindex']) : '99999999';
+
         // start other settings
         do_action('ht_ctc_ah_admin_start_os');
 
         $li_active_gr_sh = ( isset( $options['enable_group'] ) || isset( $options['enable_share'] ) ) ? "class='active'" : '';
         ?>
 
-        <ul class="collapsible" data-collapsible="accordion" id="ht_ctc_othersettings">
-        <li class="active">
-        <div class="collapsible-header"><?php _e( 'Other Settings', 'click-to-chat-for-whatsapp' ); ?></div>
+        <p class="description"><?php _e( 'All this below settings are not important to everyone', 'click-to-chat-for-whatsapp' ); ?></p>
+
+        <ul class="collapsible ht_ctc_other_settings" data-collapsible="accordion" id="ht_ctc_othersettings">
+        <li class="">
+        <div class="collapsible-header"><?php _e( 'Advanced Settings', 'click-to-chat-for-whatsapp' ); ?></div>
         <div class="collapsible-body">
 
-        <?php
-        // cache issue while selecting styles
-        if ( isset( $options['select_styles_issue'] ) ) {
-            ?>
-            <p id="styles_issue">
-                <label>
-                    <input name="<?= $dbrow; ?>[select_styles_issue]" type="checkbox" value="1" <?php checked( $options['select_styles_issue'], 1 ); ?> id="select_styles_issue" />
-                    <!-- <span>Style for device is not as expected(due to cache)</span> -->
-                    <span><?php _e( 'Check this only, If styles for mobile, desktop not selected as expected(due to cache)', 'click-to-chat-for-whatsapp' ); ?></span>
-                </label>
-            </p>
-            <?php
-        } else {
-            ?>
-            <p id="styles_issue">
-                <label>
-                    <input name="<?= $dbrow; ?>[select_styles_issue]" type="checkbox" value="1" id="select_styles_issue" />
-                    <span><?php _e( 'Check this only, If styles for mobile, desktop not selected as expected(due to cache)', 'click-to-chat-for-whatsapp' ); ?></span>
-                </label>
-            </p>
-            <?php
-        }
-        ?>
-        <br>
+        <!-- z-index -->
+        <div class="row">
+            <div class="col s6">
+                <p><?php _e( 'z-index', 'click-to-chat-for-whatsapp' ); ?></p>
+            </div>
+            <div class="input-field col s6">
+                <input name="<?= $dbrow; ?>[zindex]" value="<?= $zindex ?>" min="0" id="zindex" type="number">
+                <label for="zindex"><?php _e( 'z-index', 'click-to-chat-for-whatsapp' ); ?></label>
+                <p class="description"><?php _e( 'Position of the element along with z-index. stacking the elements', 'click-to-chat-for-whatsapp' ); ?></p>
+            </div>
+        </div>        
 
+        <!-- aria -->
+        <div class="row">
+            <p id="aria">
+                <label>
+                    <input name="<?php echo $dbrow ?>[aria]" type="checkbox" value="1" <?php checked( $aria, 1 ); ?> id="aria" />
+                    <span><?php _e( 'Add aria-hidden=true - hide for Accessibility API (screen readers)', 'click-to-chat-for-whatsapp' ); ?></span>
+                </label>
+            </p>
+        </div>        
 
         <?php
         // hook
@@ -466,7 +478,7 @@ class HT_CTC_Admin_Other_Settings {
         <br>
 
         <!-- enable group, share features -->
-        <ul class="collapsible" data-collapsible="accordion" id="ht_ctc_enable_share_group">
+        <ul class="collapsible ht_ctc_enable_share_group" data-collapsible="accordion" id="ht_ctc_enable_share_group">
         <li <?= $li_active_gr_sh; ?>>
         <div class="collapsible-header"><?php _e( 'Group, Share features', 'click-to-chat-for-whatsapp' ); ?></div>
         <div class="collapsible-body">
@@ -526,7 +538,8 @@ class HT_CTC_Admin_Other_Settings {
         <br>
         
         <!-- chat -->
-        <p class="description"><?php _e( "Chat settings are enabled by default. If like to hide chat on all pages select", 'click-to-chat-for-whatsapp' ); ?> <a target="_blank" href="<?= admin_url( 'admin.php?page=click-to-chat#showhide_settings' ); ?>"><?php _e( 'show on selected pages', 'click-to-chat-for-whatsapp' ); ?></a> - <a target="_blank" href="https://holithemes.com/plugins/click-to-chat/enable-chat"><?php _e( 'more info', 'click-to-chat-for-whatsapp' ); ?></a> </p>
+        <p class="description"><?php _e( "Chat settings are enabled by default. If like to hide chat on all pages", 'click-to-chat-for-whatsapp' ); ?></p>
+        <p class="description"><?php _e( "'Click to Chat' - 'Display Settings' - 'Global' - check ", 'click-to-chat-for-whatsapp' ); ?> <a target="_blank" href="<?= admin_url( 'admin.php?page=click-to-chat#showhide_settings' ); ?>"><?php _e( "Hide on all pages", 'click-to-chat-for-whatsapp' ); ?></a> - <a target="_blank" href="https://holithemes.com/plugins/click-to-chat/enable-chat"><?php _e( 'more info', 'click-to-chat-for-whatsapp' ); ?></a> </p>
         <br>
 
 
@@ -537,38 +550,38 @@ class HT_CTC_Admin_Other_Settings {
         <br>
 
         <!-- Troubleshoot, Debug, ..  -->
-        <ul class="collapsible" data-collapsible="accordion" id="ht_ctc_debug">
+        <ul class="collapsible ht_ctc_debug" data-collapsible="accordion" id="ht_ctc_debug">
         <li>
         <div class="collapsible-header"><?php _e( 'Debug, Troubleshoot, ..', 'click-to-chat-for-whatsapp' ); ?></div>
         <div class="collapsible-body">
         <?php
 
-        // AMP Compatibility - enabled by default.  (if an issue uncheck this..)
-        // later version remove this option and make enable by default..
-        // if amp related issue, uncheck this option
+        /**
+         * AMP Compatibility - enabled by default.  (if an issue uncheck this..)
+         * later version remove this option and make enable by default..
+         * if amp related issue, uncheck this option
+         */
+
+        $amp_checkbox = ( isset( $options['amp']) ) ? esc_attr( $options['amp'] ) : '';
+
         if ( function_exists( 'amp_is_request' ) ) {
-            if ( isset( $options['amp'] ) ) {
-                ?>
-                <p id="amp_compatibility">
-                    <label>
-                        <input name="<?= $dbrow; ?>[amp]" type="checkbox" value="1" <?php checked( $options['amp'], 1 ); ?> id="amp" />
-                        <span><?php _e( 'AMP Compatibility', 'click-to-chat-for-whatsapp' ); ?></span>
-                    </label>
-                </p>
-                <?php
-            } else {
-                ?>
-                <p id="amp_compatibility">
-                    <label>
-                        <input name="<?= $dbrow; ?>[amp]" type="checkbox" value="1" id="amp" />
-                        <span><?php _e( 'AMP Compatibility', 'click-to-chat-for-whatsapp' ); ?></span>
-                    </label>
-                </p>
-                <?php
-            }
             ?>
-            <p class="description"><a target="_blank" href="https://holithemes.com/plugins/click-to-chat/amp-compatibility/"><?php _e( 'AMP Compatibility', 'click-to-chat-for-whatsapp' ); ?></a> New feature: If any issue, uncheck this option and please contact us</p>
+            <p id="amp_compatibility">
+                <label>
+                    <input name="<?= $dbrow; ?>[amp]" type="checkbox" value="1" <?php checked( $amp_checkbox, 1 ); ?> id="amp" />
+                    <span><?php _e( 'AMP Compatibility', 'click-to-chat-for-whatsapp' ); ?></span>
+                </label>
+            </p>
+            <p class="description"><a target="_blank" href="https://holithemes.com/plugins/click-to-chat/amp-compatibility/"><?php _e( 'AMP Compatibility', 'click-to-chat-for-whatsapp' ); ?></a> If any issue, uncheck this option and please contact us</p>
             <br>
+            <?php
+        } else {
+            // if amp is activated after this settings.
+            ?>
+            <label style="display: none;">
+                <input name="<?= $dbrow; ?>[amp]" type="checkbox" value="1" <?php checked( $amp_checkbox, 1 ); ?> id="amp" />
+                <span><?php _e( 'AMP Compatibility', 'click-to-chat-for-whatsapp' ); ?></span>
+            </label>
             <?php
         }
 

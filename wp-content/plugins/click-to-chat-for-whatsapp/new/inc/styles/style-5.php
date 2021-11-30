@@ -22,6 +22,10 @@ $s5_content_height = esc_attr( $s5_options['s5_content_height'] );
 $s5_content_width = esc_attr( $s5_options['s5_content_width'] );
 $s5_img_position = esc_attr( $s5_options['s5_img_position'] );
 
+// if its came from woo page.. 
+if ( isset($calling_from) && 'woo_page' == $calling_from ) {
+    $s5_img_position = 'left';
+}
 
 // default image - if user not added any image
 if ( '' == $s5_img ) {

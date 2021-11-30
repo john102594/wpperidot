@@ -49,10 +49,10 @@ if( 1 == $is_mobile ) {
 
     
     if ( 'group_chat' == $return_type ) {
-        $redirect = "window.open('https://chat.whatsapp.com/$group_id', '_blank')";
+        $redirect = "window.open('https://chat.whatsapp.com/$group_id', '_blank', 'noopener')";
         $redirect_a = "https://chat.whatsapp.com/$group_id";
     } else {
-        $redirect = "window.open('https://api.whatsapp.com/send?phone=$num&text=$initial_text', '_blank')";
+        $redirect = "window.open('https://api.whatsapp.com/send?phone=$num&text=$initial_text', '_blank', 'noopener')";
         $redirect_a = "https://api.whatsapp.com/send?phone=$num&text=$initial_text";
     }
 } else {
@@ -65,10 +65,10 @@ if( 1 == $is_mobile ) {
 
         // App First - so mobile based url
         if ( 'group_chat' == $return_type ) {
-            $redirect = "window.open('https://chat.whatsapp.com/$group_id', '_blank')";
+            $redirect = "window.open('https://chat.whatsapp.com/$group_id', '_blank', 'noreferrer')";
             $redirect_a = "https://chat.whatsapp.com/$group_id";
         } else {
-            $redirect = "window.open('https://api.whatsapp.com/send?phone=$num&text=$initial_text', '_blank')";
+            $redirect = "window.open('https://api.whatsapp.com/send?phone=$num&text=$initial_text', '_blank', 'noreferrer')";
             $redirect_a = "https://api.whatsapp.com/send?phone=$num&text=$initial_text";
         }
 
@@ -77,10 +77,10 @@ if( 1 == $is_mobile ) {
 
         // General - Desktop url
         if ( 'group_chat' == $return_type ) {
-            $redirect = "window.open('https://chat.whatsapp.com/$group_id', '_blank')";
+            $redirect = "window.open('https://chat.whatsapp.com/$group_id', '_blank', 'noreferrer')";
             $redirect_a = "https://chat.whatsapp.com/$group_id";
         } else {
-            $redirect = "window.open('https://web.whatsapp.com/send?phone=$num&text=$initial_text', '_blank')";
+            $redirect = "window.open('https://web.whatsapp.com/send?phone=$num&text=$initial_text', '_blank', 'noreferrer')";
             $redirect_a = "https://web.whatsapp.com/send?phone=$num&text=$initial_text";
         }
 
@@ -88,20 +88,6 @@ if( 1 == $is_mobile ) {
     
     
 }
-
-
-// if ( isset ( $_POST['subject'] ) ) {
-//     $num = esc_attr( $values['number'] );
-//     $subject = sanitize_text_field( $_POST['subject'] );
-//     $url = "$redirect_a&text=$subject";
-    
-//     if ( headers_sent() ) {
-//         die('<script type="text/javascript">window.location.href="' . $url . '";</script>');
-//     } else {
-//         header('Location: ' . $url);
-//         die();
-//     } 
-// }
 
 // floating style template path
 $path = plugin_dir_path( HT_CTC_PLUGIN_FILE ) . 'prev/inc/commons/styles-list/style-' . $style. '.php';

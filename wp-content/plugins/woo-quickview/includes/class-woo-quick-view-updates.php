@@ -25,7 +25,9 @@ class Woo_Quick_View_Updates {
 	 * @var array
 	 */
 	private static $updates = array(
-		'1.0.7' => 'updates/update-1.0.7.php',
+		'1.0.7'  => 'updates/update-1.0.7.php',
+		'1.0.11' => 'updates/update-1.0.11.php',
+		'2.0.0'  => 'updates/update-2.0.0.php',
 	);
 
 	/**

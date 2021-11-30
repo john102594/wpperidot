@@ -12,6 +12,7 @@ $s1_options = get_option( 'ht_ctc_s1' );
 $s1_options = apply_filters( 'ht_ctc_fh_s1_options', $s1_options );
 
 $s1_css = "";
+$s1_css .= "cursor:pointer;";
 $s1_text_color = (isset( $s1_options['s1_text_color'])) ? esc_attr( $s1_options['s1_text_color'] ) : '';
 $s1_css .= ('' !== $s1_text_color) ? "color:$s1_text_color;": "";
 $s1_bg_color = (isset( $s1_options['s1_bg_color'])) ? esc_attr( $s1_options['s1_bg_color'] ) : '';

@@ -2,8 +2,8 @@
 Contributors: karzin
 Tags: woocommerce,wishlist,wish list
 Requires at least: 4.4
-Tested up to: 5.6
-Stable tag: 1.7.1
+Tested up to: 5.8
+Stable tag: 1.8.3
 Requires PHP: 5.6.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -12,18 +12,73 @@ Let your visitors save and share the products they love on your WooCommerce stor
 
 == Description ==
 
-**Wish List for WooCommerce** offers some options to add products to a wish list.
-There is a bunch of settings that can be customized making it flexible enough to be adapted to any theme and to any kind of design.
+**Wish List for WooCommerce** plugin lets users add products to a wish list. The options are very customizable making the plugin flexible enough to be adapted to any theme and to any kind of design.
 
-**Check some of its features:**
+### &#9989; Main Features: ###
 
-* Minimalist design
-* Sharing on social networks and email (optional)
-* Icons from FontAwesome (optional)
-* Choose where wish list buttons will appear
-* Possibility to add items as unlogged users
-* A widget that points to the Wish list page
-* Add / Remove items from wishlist using Ajax
+* Minimalist design.
+
+* Sharing on social networks and email (optional).
+
+* Icons from FontAwesome (optional).
+
+* Choose where wish list buttons will be displayed.
+
+* Possibility to add items as unlogged users.
+
+* Enable/Disable notifications after an item has been added to the wish list.
+
+* Add/Remove items from wish list using Ajax.
+
+### &#11088; Premium Version ###
+
+[Wish List for WooCommerce Pro](https://wpfactory.com/item/wish-list-woocommerce/) features:
+
+* Support
+
+* Ignore cache. The plugin can work just fine even if you use some caching plugin, like WP Super Cache, W3 Total Cache or some other.
+
+* Compatibility between thumb button on archive pages and Gutenberg Editor.
+
+* Stock alert - Notify users via email when products they have added to wish list become available.
+
+* As an admin, see what your customers have in their wishlist.
+
+* Choose custom icons from FontAwesome for all your buttons and notifications.
+
+* Customize the default button in all ways (background and hover color, font weight, size, margin and more).
+
+* Choose precisely where the thumbnail button will be displayed inside product image and also style it the way you want.
+
+* Style your notifications.
+
+* Choose your social icon colors.
+
+* Customize all messages displayed to users easily.
+
+* Use tooltips to make this plugin even easier for users.
+
+* Save product attributes on wish list.
+
+* Add option to hide/show thumb or default button by product tag.
+
+* Display product images in emails.
+
+* Custom note field for each item added to Wish List.
+
+* Remove products from wish list in case they get purchased.
+
+* Allow / Disallow Unlogged users from interacting with the Wish List.
+
+* Add a column on admin users list informing which customers have added items to the Wish List.
+
+* Add a column on the admin products list informing how many times a product has been added to the Wish List.
+
+* More Wish List columns to display:
+  * Product SKU
+  * Product Quantity
+  * Product Description
+  * Product Categories
 
 == Frequently Asked Questions ==
 
@@ -32,9 +87,10 @@ There is a bunch of settings that can be customized making it flexible enough to
 
 = Are there shortcodes available? =
 *  **[alg_wc_wl]** Displays the wish list page
-*  **[alg_wc_wl_counter]** Show the amount of items that are in the wish list
+*  **[alg_wc_wl_counter]** Shows the amount of items that are in the wish list
    * Params
       * **[alg_wc_wl_counter ignore_excluded_items="true"]** - Ignores excluded items. Use it if you notice the amount of items doesn't match the wish list
+*  **[alg_wc_wl_remove_all_btn]** Displays a button that removes all the items from the wish list
 
 = How can I contribute? Is there a github repository? =
 If you are interested in contributing - head over to the [Wish List for WooCommerce plugin GitHub Repository](https://github.com/thanks-to-it/wish-list-for-woocommerce) to find out how you can pitch in.
@@ -47,39 +103,13 @@ If you use WP Rocket please try to add a setting on advanced tab > Never cache (
 You can do it through [tranlslate.wordpress](https://translate.wordpress.org/projects/wp-plugins/wish-list-for-woocommerce)
 
 = Is there a Pro version? =
-Yes, it's located [here](https://wpcodefactory.com/item/wish-list-woocommerce/ "Wish list for WooCommerce Pro")
+Yes, you can find it [here](https://wpfactory.com/item/wish-list-woocommerce/ "Wish list for WooCommerce Pro")
 
-= What can I do in the Pro version? =
+= How to change the template? =
 
-**Take a look at some of its features:**
+* Copy the wish list template file from: **plugins\wish-list-for-woocommerce\templates\wish-list.php**
 
-* Support
-* Ignore cache. The plugin can work just fine even if you use some caching plugin, like WP Super Cache, W3 Total Cache or some other
-* Compatibility between thumb button on archive pages and Gutenberg Editor.
-* Stock alert - Notify users via email when products they have added to wish list become available
-* As an admin, see what your customers have in their wishlist
-* Choose custom icons from FontAwesome for all your buttons and notifications
-* Customize the default button in all ways (background and hover color, font weight, size, margin and more)
-* Choose precisely where the thumbnail button will be displayed inside product image and also style it the way you want
-* Style your notifications
-* Choose your social icon colors
-* Customize all messages displayed to users easily
-* Use tooltips to make this plugin even easier to users
-* Save product attributes on wish list
-* Add option to hide/show thumb or default button by product tag
-* Display product images in emails
-* Custom note field for each item added to Wish List
-* Allow / Disallow Unlogged users from interacting with the Wish List
-* Add a column on admin users list informing which customers have added items to the Wish List
-* Add a column on the admin products list informing how many times a product has been added to the Wish List
-* More Wish List columns to display:
-  * Product SKU
-  * Product Quantity
-  * Product Description
-  * Product Categories
-
-= Can I see what the Pro version is capable of? =
-* After installing the free version of this plugin, you can see the Pro version features in **WooCommerce > Settings > Wish List > Pro version**
+* Create a **wish-list-for-woocommerce** folder in your theme and paste the template there
 
 == Installation ==
 
@@ -99,6 +129,62 @@ Yes, it's located [here](https://wpcodefactory.com/item/wish-list-woocommerce/ "
 8. Choose if you want to notify your users about items being added to wish list
 
 == Changelog ==
+
+= 1.8.3 - 18/11/2021 =
+* Edit `alg_wc_wl_toggle_item_events` filter adding `default` and `touchscreen` keys.
+
+= 1.8.2 - 18/11/2021 =
+* WC tested up to: 5.9.
+* Add `alg_wc_wl_toggle_item_events` filter with events for triggering the item toggling.
+
+= 1.8.1 - 25/10/2021 =
+* Remove php warning from wish list link widget.
+* Improve wish list link.
+* WC tested up to: 5.8.
+
+= 1.8.0 - 20/08/2021 =
+* Improve toggle button.
+* Add `woocommerce_before_add_to_cart_form`, `woocommerce_after_add_to_cart_form`, `woocommerce_before_add_to_cart_quantity` and `woocommerce_after_add_to_cart_quantity` positions to Single product page button.
+* WC tested up to: 5.6.
+* Improve readme.
+
+= 1.7.9 - 02/08/2021 =
+* Fix readme.
+* Fix css regarding Font awesome icons.
+
+= 1.7.8 - 02/08/2021 =
+* Fix css regarding Font awesome icons.
+* WC tested up to: 5.5.
+* Tested up to: 5.8.
+
+= 1.7.7 - 17/06/2021 =
+* Fix version.
+
+= 1.7.6 - 17/06/2021 =
+* Fix - PHP 8 error:  Uncaught TypeError in `class-alg-wc-wish-list-core.php:294`.
+* Add FAQ question regarding template override.
+* Remove google plus from sharing options.
+* WC tested up to: 5.4.
+
+= 1.7.5 - 31/05/2021 =
+* The `auto_hide` param from `[alg_wc_wl_remove_all_btn]` shortcode makes the button disappear if the wish list is empty.
+
+= 1.7.4 - 28/05/2021 =
+* Create `auto_hide` param for `[alg_wc_wl_remove_all_btn]` shortcode making the button disappear after the wish list is empty.
+
+= 1.7.3 - 23/05/2021 =
+* Add `[alg_wc_wl_remove_all_btn]` shortcode.
+* WC tested up to: 5.3.
+
+= 1.7.2 - 06/05/2021 =
+* Fix PHP Notice:  WP_Scripts::localize was called incorrectly.
+* Update Izitoast to version 1.4.0.
+* Update gulp to version 4.0.2.
+* Add button param `btn_icon_class_added` to change the icon when a product is added to wish list.
+* Add remove button icon class with the `alg_wc_wl_fa_icon_class` filter using `remove_btn` as the second parameter.
+* Change deploy script.
+* Tested up to: 5.7
+* WC tested up to: 5.2
 
 = 1.7.1 - 15/02/2021 =
 * Tested up to: 5.6.

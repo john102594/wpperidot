@@ -21,6 +21,10 @@ $s7_cta_type = (isset( $s7_options['cta_type'])) ? esc_attr( $s7_options['cta_ty
 $s7_cta_textcolor = (isset( $s7_options['cta_textcolor'])) ? esc_attr( $s7_options['cta_textcolor'] ) : '';
 $s7_cta_bgcolor = (isset( $s7_options['cta_bgcolor'])) ? esc_attr( $s7_options['cta_bgcolor'] ) : '#ffffff';
 
+$s7_cta_font_size = (isset( $s7_options['cta_font_size'])) ? esc_attr( $s7_options['cta_font_size'] ) : '';
+
+$s7_cta_font_size = ('' !== $s7_cta_font_size) ? "font-size: $s7_cta_font_size" : "";
+
 $rtl_css = "";
 if ( function_exists('is_rtl') && is_rtl() ) {
     $rtl_css = "flex-direction:row-reverse;";
@@ -29,14 +33,15 @@ if ( function_exists('is_rtl') && is_rtl() ) {
 $s7_n1_styles = "display:flex;justify-content:center;align-items:center;$rtl_css ";
 $s7_icon_css = "font-size: $s7_icon_size; color: $s7_icon_color; padding: $s7_border_size; background-color: $s7_border_color; border-radius: $s7_border_radius;";
 
-// Call to action 
+// Call to action - order
 $s7_cta_order = "1";
-if ('right' == $side_2) {
+if ( isset($side_2) && 'right' == $side_2) {
     // if side_2 is right then cta is left
     $s7_cta_order = "0";
 }
 
-$s7_cta_css = "padding: 0px 16px; color: $s7_cta_textcolor; background-color: $s7_cta_bgcolor; border-radius:10px; margin:0 10px; ";
+
+$s7_cta_css = "padding: 0px 16px; $s7_cta_font_size; color: $s7_cta_textcolor; background-color: $s7_cta_bgcolor; border-radius:10px; margin:0 10px; ";
 $s7_cta_class = "ht-ctc-cta ";
 $title = "";
 if ( 'hover' == $s7_cta_type ) {
@@ -58,14 +63,6 @@ $s7_svg_attrs = array(
     'ht_ctc_svg_css' => "$ht_ctc_svg_css",
 );
 
-// cta order
-$s7_cta_order = "1";
-if ('right' == $side_2) {
-    // if side_2 is right then cta is left
-    $s7_cta_order = "0";
-}
-
-
 // hover
 $s7_hover_icon_styles = ".ht-ctc.style-7:hover .ctc_s_7_icon_padding{background-color:$s7_border_color_hover !important;}.ht-ctc.style-7:hover svg g path{fill:$s7_icon_color_hover !important;}";
 
@@ -75,8 +72,8 @@ include_once HT_CTC_PLUGIN_DIR .'new/inc/assets/img/ht-ctc-svg-images.php';
 <?= $s7_hover_icon_styles ?>
 </style>
 
-<div <?= $title ?> class="ctc_s_7 ctc-analytics ctc_cta" style="<?= $s7_n1_styles; ?>">
-    <p class="ctc_s_7_cta ctc-analytics <?= $s7_cta_class ?>" style="<?= $s7_cta_css ?>"><?= $call_to_action; ?></p>
+<div <?= $title ?> class="ctc_s_7 ctc-analytics" style="<?= $s7_n1_styles; ?>">
+    <p class="ctc_s_7_cta ctc_cta ctc-analytics <?= $s7_cta_class ?>" style="<?= $s7_cta_css ?>"><?= $call_to_action; ?></p>
     <div class="ctc_s_7_icon_padding ctc-analytics " style="<?= $s7_icon_css ?>">
         <?= ht_ctc_singlecolor( $s7_svg_attrs ); ?>
     </div>

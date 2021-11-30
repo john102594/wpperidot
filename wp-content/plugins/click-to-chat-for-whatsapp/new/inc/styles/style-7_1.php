@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 // shadow
 // 0px 0px 11px rgba(0,0,0,.5)  /   5px 5px 11px #888888
 // $s7_bs = "box-shadow: 5px 5px 11px rgba(0,0,0,.5);";
+// $s7_bs = "box-shadow: 2px 2px 6px rgba(0,0,0,.5);";
 // $s7_box_shadow = "";
 // if ( !isset( $s7_options['s3_box_shadow'])) {
 //     $s7_box_shadow = "$s7_bs ";
@@ -29,13 +30,15 @@ $s7_border_size = esc_attr( $s7_1_options['s7_border_size'] );
 
 // Call to action 
 $s7_cta_type = (isset( $s7_1_options['cta_type'])) ? esc_attr( $s7_1_options['cta_type'] ) : 'hover';
+$s7_1_cta_font_size = (isset( $s7_1_options['cta_font_size'])) ? esc_attr( $s7_1_options['cta_font_size'] ) : '';
 
+$s7_1_cta_font_size = ('' !== $s7_1_cta_font_size) ? "font-size: $s7_1_cta_font_size" : "";
 
 // Call to action - Order
 $s7_cta_order = "1";
 $s7_hover_cta_padding_css = "padding-right: 21px;";
 $s7_show_cta_padding_css = "padding:5px 5px 5px 20px;";
-if ('right' == $side_2) {
+if ( isset($side_2) && 'right' == $side_2) {
     // if side_2 is right then cta is left
     $s7_cta_order = "0";
     $s7_hover_cta_padding_css = "padding-left: 21px;";
@@ -54,7 +57,7 @@ if ( function_exists('is_rtl') && is_rtl() ) {
 }
 
 $s7_n1_styles = "display:flex;justify-content:center;align-items:center;$rtl_css ";
-$s7_cta_css = "";
+$s7_cta_css = "$s7_1_cta_font_size; ";
 $s7_icon_padding_css = "";
 $s7_cta_class = "ht-ctc-cta ";
 $s7_hover_styles = "";
@@ -81,12 +84,6 @@ $s7_svg_attrs = array(
     'ht_ctc_svg_css' => "$ht_ctc_svg_css",
 );
 
-// cta order
-$s7_cta_order = "1";
-if ('right' == $side_2) {
-    // if side_2 is right then cta is left
-    $s7_cta_order = "0";
-}
 
 include_once HT_CTC_PLUGIN_DIR .'new/inc/assets/img/ht-ctc-svg-images.php';
 ?>

@@ -52,7 +52,7 @@ var WPFormsFormEmbedWizard = window.WPFormsFormEmbedWizard || ( function( docume
 			$( window ).on( 'load', function() {
 
 				// in case of jQuery 3.+ we need to wait for an `ready` event first.
-				if ( $.isFunction( $.ready.then ) ) {
+				if ( typeof $.ready.then === 'function' ) {
 					$.ready.then( app.load );
 				} else {
 					app.load();
@@ -350,15 +350,13 @@ var WPFormsFormEmbedWizard = window.WPFormsFormEmbedWizard || ( function( docume
 				content: wpforms_builder.exit_confirm,
 				icon: 'fa fa-exclamation-circle',
 				type: 'orange',
-				backgroundDismiss: false,
-				closeIcon: false,
+				closeIcon: true,
 				buttons: {
 					confirm: {
 						text: wpforms_builder.save_embed,
 						btnClass: 'btn-confirm',
 						keys: [ 'enter' ],
 						action: function() {
-
 							WPFormsBuilder.formSave().done( app.embedPageRedirect );
 						},
 					},
@@ -369,6 +367,9 @@ var WPFormsFormEmbedWizard = window.WPFormsFormEmbedWizard || ( function( docume
 							app.embedPageRedirect();
 						},
 					},
+				},
+				onClose: function() {
+					el.$sectionGo.find( 'button' ).prop( 'disabled', false );
 				},
 			} );
 		},

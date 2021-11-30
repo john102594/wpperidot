@@ -1,6 +1,6 @@
 // Include project requirements.
 var gulp = require('gulp'),
-    uglify = require('gulp-uglify'),
+    terser = require('gulp-terser'),
     sass = require('gulp-sass'),
     livereload = require('gulp-livereload'),
     watch = require('gulp-watch'),
@@ -23,9 +23,7 @@ gulp.task('js-custom', function () {
         .pipe(sourcemaps.write('../maps'))
         .pipe(gulp.dest(dirs.js))
         .pipe(concat('alg-wc-wish-list.min.js'))
-        .pipe(uglify({
-            preserveComments:'license'
-        }).on('error', function(e){
+        .pipe(terser().on('error', function(e){
             console.log(e.message); return this.end();
         }))
         .pipe(sourcemaps.write('../maps'))
@@ -63,7 +61,7 @@ gulp.task('sass', function () {
         .pipe(gulp.dest(dirs.css));
 });
 
-gulp.task('copy.libs', [], function() {
+gulp.task('copy.libs', function() {
   console.log("Moving Izitoast to Project ");
 
   //Izitoast
@@ -71,16 +69,12 @@ gulp.task('copy.libs', [], function() {
         .pipe(gulp.dest(dirs.vendor + "/izitoast"));  
 });
 
-gulp.task('watch', ['sass', 'js-custom'], function () {
+gulp.task('watch', gulp.series('sass', 'js-custom', function () {
     livereload.listen();
-    watch(dirs.js + '/src/*.js', function () {
-        gulp.start('js-custom');
-    });
-    watch(dirs.sass + '/**/*.scss', function () {
-        gulp.start('sass');
-    });
-});
+    gulp.watch(dirs.js + '/src/*.js', gulp.series('js-custom'));
+    gulp.watch(dirs.sass + '/**/*.scss',gulp.series('sass'));
+}));
 
 gulp.task('default', function () {
-    gulp.start(['sass', 'scripts']);
+    gulp.series('sass', 'scripts');
 });

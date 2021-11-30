@@ -1,13 +1,38 @@
 /* Admin CSS */
 
-.show-hide_display-none {
+/**
+* ctc_init_display_none - hide initially, if need display later based on settings
+*/
+
+/* md related */
+.collapsible .dropdown-content li {
+    background-color: #ffffff;
+}
+
+* {
+    scroll-behavior: smooth;
+}
+
+.ht_ctc_show_hide_settings :checked ~ .dashicons-visibility,
+.ht_ctc_show_hide_settings :checked ~ span .dashicons-visibility,
+.ht_ctc_show_hide_settings .show_settings .dashicons-visibility {
+    color: green !important;
+}
+
+.ht_ctc_show_hide_settings :checked ~ .dashicons-hidden,
+.ht_ctc_show_hide_settings :checked ~ span .dashicons-hidden,
+.ht_ctc_show_hide_settings .hide_settings .dashicons-hidden {
+    color: red !important;
+}
+
+.show-hide_display-none,
+.not_samesettings,
+.show_settings,
+.hide_settings,
+.ctc_init_display_none {
     display: none; 
 }
   
-.show-hide_display-block {
-    display: block; 
-}
-
 .options .submit {
     position: sticky !important;
     bottom: 1px;
@@ -18,6 +43,14 @@
 .options .submit input {
     letter-spacing: 0.4px;
     padding: 2px 11px;
+}
+
+.click-to-chat_page_click-to-chat-greetings .link-target #wp-link-target {
+    opacity: 1 !important;
+}
+
+.wp-editor-wrap {
+    padding-left: 0.75rem;
 }
 
 .description.ht_ctc_pro_description {
@@ -40,6 +73,7 @@
     padding-left: 0.9rem;
     margin: 5px 0;
 }
+
 
 @media only screen and (min-width: 1201px) {
     .sticky-sidebar {

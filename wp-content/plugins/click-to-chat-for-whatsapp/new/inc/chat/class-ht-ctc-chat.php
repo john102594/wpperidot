@@ -11,6 +11,11 @@ if ( ! class_exists( 'HT_CTC_Chat' ) ) :
 
 class HT_CTC_Chat {
 
+    /**
+     * Chat
+     * 
+     * @var $display - changes at show-hide.php
+     */
     public function chat() {
         
         $options = get_option('ht_ctc_chat_options');
@@ -19,12 +24,6 @@ class HT_CTC_Chat {
 
         // If db values are not correct
 		if ( !is_array($options)  || !isset($options['number']) ) {
-            // in debug mode
-            if ( isset($othersettings['debug_mode']) ) {
-            ?>
-            <script>console.log('please check plugin settings and save changes')</script>
-            <?php
-            }
             return;
         }
 		
@@ -34,8 +33,55 @@ class HT_CTC_Chat {
         $ht_ctc_settings = array();
 
         $page_id = get_the_ID();
+        // $page_id = get_queried_object_id()
+
         $page_url = get_permalink();
         $post_title = esc_html( get_the_title() );
+
+        if ( is_home() || is_front_page() ) {
+            // is home page
+            $page_url = home_url('/');
+            // if home page is a loop then return site name.. (instead of getting the last post title in that loop)
+            $post_title = HT_CTC_BLOG_NAME;
+
+            // if home page is a page then return page title.. (if not {site} and {title} will be same )
+            if ( is_page() ) {
+                $post_title = esc_html( get_the_title() );
+            }
+        } elseif ( is_singular() ) {
+            // is singular
+            $page_url = get_permalink();
+            $post_title = esc_html( get_the_title() );
+        } elseif ( is_archive() ) {
+
+            if ( isset($_SERVER['HTTP_HOST']) && $_SERVER['REQUEST_URI'] ) {
+                $protocol = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ) ? 'https' : 'http';
+                $page_url = $protocol . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            }
+
+            if ( is_category() ) {
+                $post_title = single_cat_title( '', false );
+            } elseif ( is_tag() ) {
+                $post_title = single_tag_title( '', false );
+            } elseif ( is_author() ) {
+                $post_title = get_the_author();
+            } elseif ( is_post_type_archive() ) {
+                $post_title = post_type_archive_title( '', false );
+            } elseif ( function_exists( 'is_tax') && function_exists( 'single_term_title') && is_tax() ) {
+                $post_title = single_term_title( '', false );
+            } else {
+                if ( function_exists('get_the_archive_title') ) {
+                    $post_title = get_the_archive_title();
+                }
+            }
+
+        }
+
+        // is shop page
+        if ( class_exists( 'WooCommerce' ) && function_exists( 'is_shop') && function_exists( 'wc_get_page_id') && is_shop() ) {
+            $page_id = wc_get_page_id( 'shop' );
+            $post_title = esc_html( get_the_title( $page_id ) );
+        }
 
         // page level
         $ht_ctc_pagelevel = get_post_meta( $page_id, 'ht_ctc_pagelevel', true );
@@ -57,7 +103,11 @@ class HT_CTC_Chat {
         $is_mobile = ht_ctc()->device_type->is_mobile();
         // style
         $ht_ctc_chat['style_desktop'] = (isset($options['style_desktop'])) ? esc_attr($options['style_desktop']) : '2';
-        $ht_ctc_chat['style_mobile'] = (isset($options['style_mobile'])) ? esc_attr($options['style_mobile']) : '2';
+        if (isset($options['same_settings'])) {
+            $ht_ctc_chat['style_mobile'] = $ht_ctc_chat['style_desktop'];
+        } else {
+            $ht_ctc_chat['style_mobile'] = (isset($options['style_mobile'])) ? esc_attr($options['style_mobile']) : '2';
+        }
 
         // position
         // default position override at js, but useful in amp pages
@@ -93,8 +143,13 @@ class HT_CTC_Chat {
             $ht_ctc_chat['webandapi'] = 'web';
         }
 
-        $ht_ctc_chat['display_mobile'] = (isset($options['hideon_mobile'])) ? 'hide' : 'show';
-        $ht_ctc_chat['display_desktop'] = (isset($options['hideon_desktop'])) ? 'hide' : 'show';
+        // need to run the updater backup
+        if ( !isset($options['display_mobile']) ) {
+            include_once HT_CTC_PLUGIN_DIR . '/new/admin/db/class-ht-ctc-update-db-backup.php';
+        }
+
+        $ht_ctc_chat['display_mobile'] = (isset($options['display_mobile'])) ? esc_attr($options['display_mobile']) : 'show';
+        $ht_ctc_chat['display_desktop'] = (isset($options['display_desktop'])) ? esc_attr($options['display_desktop']) : 'show';
 
         // number not added and is administrator
         $no_number = '';
@@ -114,15 +169,24 @@ class HT_CTC_Chat {
         // schedule
         $ht_ctc_chat['schedule'] = 'no';
 
-        $ht_ctc_chat['css'] = "display: none; cursor: pointer; z-index: 99999999;";
+        $zindex = (isset($othersettings['zindex'])) ? esc_attr($othersettings['zindex']) : '';
+        $zindex = ('' == $zindex) ? '99999999' : $zindex;
+
+        $ht_ctc_chat['css'] = "display: none; cursor: pointer; z-index: $zindex;";
 
         // analytics
         $ht_ctc_os['is_ga_enable'] = 'yes';
         $ht_ctc_os['is_fb_pixel'] = 'yes';
         $ht_ctc_os['ga_ads'] = 'no';
         $ht_ctc_os['data-attributes'] = '';
+        // @since v3.3.5 new way of adding attributes [data-attributes]
+        $ht_ctc_os['attributes'] = '';
+
+        // class name related to animations..
+        $ht_ctc_os['class_names'] = '';
         // show effect
         $ht_ctc_os['show_effect'] = '';
+        $ht_ctc_os['an_type'] = '';
 
         // hooks
         $ht_ctc_chat = apply_filters( 'ht_ctc_fh_chat', $ht_ctc_chat );
@@ -147,7 +211,9 @@ class HT_CTC_Chat {
         $style_mobile = $ht_ctc_chat['style_mobile'];
         $call_to_action = $ht_ctc_chat['call_to_action'];
 
-        $ht_ctc_chat['class_names'] .= " $wp_device style-$style ";
+        $other_classes = $ht_ctc_os['class_names'];
+
+        $ht_ctc_chat['class_names'] .= " $wp_device style-$style $other_classes ";
 
         // call style
         $path = plugin_dir_path( HT_CTC_PLUGIN_FILE ) . 'new/inc/styles/style-' . $style. '.php';
@@ -165,6 +231,7 @@ class HT_CTC_Chat {
         $display_css = "display: none; ";
 
         // AMP
+        $is_amp = false;
         $on = "";
 
         // AMP
@@ -172,6 +239,8 @@ class HT_CTC_Chat {
             // ampforwp_is_amp_endpoint  / is_amp_endpoint / amp_is_request
             if ( function_exists( 'amp_is_request' ) && amp_is_request() ) {
             
+                $is_amp = true;
+
                 if ( 'yes' == $is_mobile ) {
                     if ( 'show' == $ht_ctc_chat['display_mobile'] ) {
                         $display_css = "";
@@ -181,6 +250,7 @@ class HT_CTC_Chat {
                         $display_css = "";
                     }
                 }
+                $display_css .= "cursor:pointer;";
 
                 $pre = rawurlencode($ht_ctc_chat['pre_filled']);
                 // 'single quote', 'double quote', '&', '<', '>'
@@ -192,7 +262,6 @@ class HT_CTC_Chat {
                 wp_deregister_script( 'ht_ctc_app_js' );
             }
         }
-        
 
         // webhook
         $hook_url = isset($othersettings['hook_url']) ? esc_attr( $othersettings['hook_url'] ) : '';
@@ -269,8 +338,6 @@ class HT_CTC_Chat {
             }
         }
 
-
-
         $ctc = apply_filters( 'ht_ctc_fh_ctc', $ctc );
 
         // data-attribute - data-settings 
@@ -293,11 +360,13 @@ class HT_CTC_Chat {
             do_action('ht_ctc_ah_before_fixed_position');
             ?>  
             <div class="<?= $ht_ctc_chat['class_names'] ?>" id="<?= $ht_ctc_chat['id'] ?>"  
-                style="<?= $display_css ?> <?= $default_position ?>"  
-                <?= $on ?>  
-                >
+                style="<?= $display_css ?> <?= $default_position ?>" <?= $ht_ctc_os['attributes'] ?> <?= $on ?> >
                 <?php
-                if ( isset( $othersettings['select_styles_issue'] ) ) {
+                do_action('ht_ctc_ah_in_fixed_position');
+                ?>
+                <div class="ht_ctc_style ht_ctc_chat_style">
+                <?php
+                if ( isset( $options['select_styles_issue'] ) ) {
                     ?>
                     <div class="ht_ctc_desktop_chat"><?php include $path_d; ?></div>
                     <div class="ht_ctc_mobile_chat"><?php include $path_m; ?></div>
@@ -306,6 +375,7 @@ class HT_CTC_Chat {
                     include $path;
                 }
                 ?>
+                </div>
             </div>
             <?php
             do_action('ht_ctc_ah_after_fixed_position');

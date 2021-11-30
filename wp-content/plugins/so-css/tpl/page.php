@@ -25,12 +25,12 @@ if ( ! empty( $current_revision ) ) {
 
 
 	<?php if( isset($_POST['siteorigin_custom_css']) ) : ?>
-		<div class="notice notice-success"><p><?php _e('Site design updated.', 'so-css') ?></p></div>
+		<div class="notice notice-success"><p><?php esc_html_e( 'Site design updated.', 'so-css' ); ?></p></div>
 	<?php endif; ?>
 
 	<?php if ( ! empty( $current_revision ) ) : ?>
 		<div class="notice notice-warning">
-			<p><?php printf( __( 'Editing revision dated %s. Click %sRevert to this revision%s to keep using it.', 'so-css'), $revision_date, '<em>', '</em>' ) ?></p>
+			<p><?php printf( esc_html__( 'Editing revision dated %s. Click %sRevert to this revision%s to keep using it.', 'so-css' ), $revision_date, '<em>', '</em>' ); ?></p>
 		</div>
 	<?php endif; ?>
 
@@ -42,9 +42,9 @@ if ( ! empty( $current_revision ) ) {
 
 			<?php if( $this->display_teaser() ) : ?>
 				<div class="postbox">
-					<h3 class="hndle"><span><?php _e('Get The Full Experience', 'so-css') ?></span></h3>
+					<h3 class="hndle"><span><?php esc_html_e( 'Get The Full Experience', 'so-css' ); ?></span></h3>
 					<div class="inside">
-						<?php printf( __( '%sSiteOrigin Premium%s adds a <strong>Google Web Font</strong> selector to SiteOrigin CSS so you can easily change any font.', 'so-css' ) , '<a href="https://siteorigin.com/downloads/premium/?featured_addon=plugin/web-font-selector" target="_blank">', '</a>' ); ?>
+						<?php printf( wp_kses_post( __( '%sSiteOrigin Premium%s adds a <strong>Google Web Font</strong> selector to SiteOrigin CSS so you can easily change any font.', 'so-css' ) ), '<a href="https://siteorigin.com/downloads/premium/?featured_addon=plugin/web-font-selector" target="_blank">', '</a>' ); ?>
 					</div>
 				</div>
 			<?php endif; ?>
@@ -52,8 +52,8 @@ if ( ! empty( $current_revision ) ) {
 			<?php if( !get_user_meta( $user->ID, 'socss_hide_gs' ) ) : ?>
 				<div class="postbox" id="so-custom-css-getting-started">
 					<h3 class="hndle">
-						<span><?php _e('Getting Started Video', 'so-css') ?></span>
-						<a href="<?php echo wp_nonce_url( admin_url('admin-ajax.php?action=socss_hide_getting_started'), 'hide' ) ?>" class="hide"><?php _e('Dismiss', 'so-css') ?></a>
+						<span><?php esc_html_e( 'Getting Started Video', 'so-css' ); ?></span>
+						<a href="<?php echo wp_nonce_url( admin_url('admin-ajax.php?action=socss_hide_getting_started'), 'hide' ) ?>" class="hide"><?php esc_html_e( 'Dismiss', 'so-css' ); ?></a>
 					</h3>
 					<div class="inside">
 						<a href="https://siteorigin.com/css/getting-started/" target="_blank"><img src="<?php echo plugin_dir_url(__FILE__).'../css/images/video.jpg' ?>" /></a>
@@ -62,7 +62,7 @@ if ( ! empty( $current_revision ) ) {
 			<?php endif; ?>
 
 			<div class="postbox" id="so-custom-css-revisions">
-				<h3 class="hndle"><span><?php _e('CSS Revisions', 'so-css') ?></span></h3>
+				<h3 class="hndle"><span><?php esc_html_e( 'CSS Revisions', 'so-css' ); ?></span></h3>
 				<div class="inside">
 					<ol class="custom-revisions-list" data-confirm="<?php esc_attr_e('Are you sure you want to load this revision?', 'so-css') ?>">
 						<?php
@@ -87,15 +87,18 @@ if ( ! empty( $current_revision ) ) {
 				</div>
 
 				<div class="toolbar-action-buttons">
-
-					<a href="#visual" class="editor-visual socss-button">
-						<span class="fa fa-eye"></span>
-					</a>
-
 					<a href="#expand" class="editor-expand socss-button">
-						<span class="fa fa-expand"></span>
-						<span class="fa fa-compress"></span>
+						<span class="so-css-icon so-css-icon-expand" title="<?php esc_attr_e( 'Open Expanded Mode', 'so-css' ); ?>"></span>
+						<span class="so-css-icon so-css-icon-compress" title="<?php esc_attr_e( 'Close Expanded Mode', 'so-css' ); ?>"></span>
 					</a>
+
+					<a href="#visual" class="editor-visual socss-button" title="<?php esc_attr_e( 'Open Visual Mode', 'so-css' ); ?>">
+						<span class="so-css-icon so-css-icon-eye"></span>
+					</a>
+
+					<span class="save socss-button button-primary" title="<?php esc_attr_e( 'Save CSS', 'so-css' ); ?>">
+						<span class="so-css-icon so-css-icon-save"></span>
+					</span>
 				</div>
 			</div>
 
@@ -103,7 +106,11 @@ if ( ! empty( $current_revision ) ) {
 				<textarea name="siteorigin_custom_css" id="custom-css-textarea" class="css-editor" rows="<?php echo max( 10, substr_count( $custom_css, "\n" ) + 1 ) ?>"><?php echo esc_textarea( $custom_css ) ?></textarea>
 				<?php wp_nonce_field( 'custom_css', '_sononce' ) ?>
 			</div>
-			<p class="description"><?php esc_html_e( $editor_description ) ?></p>
+			<div class="so-css-footer">
+				<p class="description">
+					<?php esc_html_e( $editor_description ); ?>
+				</p>
+			</div>
 
 			<div class="custom-css-preview">
 
@@ -118,8 +125,11 @@ if ( ! empty( $current_revision ) ) {
 			<div class="toolbar">
 				<select>
 				</select>
-				<div class="close socss-button">
-					<span class="fa fa-check"></span>
+				<div class="close socss-button" title="<?php esc_attr_e( 'Close', 'so-css' ); ?>">
+					<span class="so-css-icon so-css-icon-check"></span>
+				</div>
+				<div class="save socss-button button-primary" title="<?php esc_attr_e( 'Save CSS', 'so-css' ); ?>">
+					<span class="so-css-icon so-css-icon-save"></span>
 				</div>
 			</div>
 

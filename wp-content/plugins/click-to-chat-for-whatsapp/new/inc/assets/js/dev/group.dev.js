@@ -88,9 +88,11 @@ function display(p) {
 
     // animations
     var animateclass = p.getAttribute('data-an_type')
+    var an_time = ($(p).hasClass('ht_ctc_entry_animation')) ? 1200 : 120;
+
     setTimeout(function () {
         p.classList.add('ht_ctc_animation', animateclass);
-    }, 120);
+    }, an_time);
 
     // cta hover effects
     $(".ht-ctc-group").hover(function () {

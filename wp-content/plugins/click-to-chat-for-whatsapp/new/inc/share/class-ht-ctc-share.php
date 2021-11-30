@@ -24,14 +24,6 @@ class HT_CTC_Share {
         
         // If db values are not correct
 		if ( !is_array($options)  || !isset($options['share_text']) ) {
-
-            // in debug mode
-            if ( isset($othersettings['debug_mode']) ) {
-            ?>
-            <script>console.log('please check plugin settings and save changes')</script>
-            <?php
-            }
-            
             return;
         }
 
@@ -59,8 +51,12 @@ class HT_CTC_Share {
         $is_mobile = ht_ctc()->device_type->is_mobile();
 
         // style
-        $ht_ctc_share['style_desktop'] = esc_attr( $options['style_desktop'] );
-        $ht_ctc_share['style_mobile'] = esc_attr( $options['style_mobile'] );
+        $ht_ctc_share['style_desktop'] = (isset($options['style_desktop'])) ? esc_attr($options['style_desktop']) : '2';
+        if (isset($options['same_settings'])) {
+            $ht_ctc_share['style_mobile'] = $ht_ctc_share['style_desktop'];
+        } else {
+            $ht_ctc_share['style_mobile'] = (isset($options['style_mobile'])) ? esc_attr($options['style_mobile']) : '2';
+        }
 
         // position
         include HT_CTC_PLUGIN_DIR .'new/inc/commons/position-to-place.php';
@@ -91,8 +87,8 @@ class HT_CTC_Share {
             $ht_ctc_share['webandapi'] = 'webapi';
         }
 
-        $ht_ctc_share['display_mobile'] = (isset($options['hideon_mobile'])) ? 'hide' : 'show';
-        $ht_ctc_share['display_desktop'] = (isset($options['hideon_desktop'])) ? 'hide' : 'show';
+        $ht_ctc_share['display_mobile'] = (isset($options['display_mobile'])) ? esc_attr($options['display_mobile']) : 'show';
+        $ht_ctc_share['display_desktop'] = (isset($options['display_desktop'])) ? esc_attr($options['display_desktop']) : 'show';
 
         $ht_ctc_share['css'] = "display: none; cursor: pointer; z-index: 99999999;";
 
@@ -103,6 +99,7 @@ class HT_CTC_Share {
         $ht_ctc_os['data-attributes'] = '';
         // show effect
         $ht_ctc_os['show_effect'] = '';
+        $ht_ctc_os['class_names'] = '';
 
         // hooks
         $ht_ctc_share = apply_filters( 'ht_ctc_fh_share', $ht_ctc_share );
@@ -121,7 +118,9 @@ class HT_CTC_Share {
         $style_mobile = $ht_ctc_share['style_mobile'];
         $call_to_action = $ht_ctc_share['call_to_action'];
         
-        $ht_ctc_share['class_names'] .= " style-$style";
+        $other_classes = $ht_ctc_os['class_names'];
+
+        $ht_ctc_share['class_names'] .= " style-$style $other_classes";
 
         if ( '' == $call_to_action ) {
             if ( '1' == $style || '4' == $style || '6' == $style || '8' == $style ) {
@@ -156,7 +155,7 @@ class HT_CTC_Share {
                 <?= $ht_ctc_os['data-attributes'] ?>  
                 >
                 <?php 
-                if ( isset( $othersettings['select_styles_issue'] ) ) {
+                if ( isset( $options['select_styles_issue'] ) ) {
                     ?>
                     <div class="ht_ctc_desktop_share"><?php include $path_d; ?></div>
                     <div class="ht_ctc_mobile_share"><?php include $path_m; ?></div>

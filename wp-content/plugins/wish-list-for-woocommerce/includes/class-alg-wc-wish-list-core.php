@@ -2,7 +2,7 @@
 /**
  * Wish List for WooCommerce - Core Class
  *
- * @version 1.6.7
+ * @version 1.7.6
  * @since   1.0.0
  * @author  Thanks to IT
  */
@@ -219,7 +219,7 @@ final class Alg_WC_Wish_List_Core {
 	/**
 	 * Load social networks template
 	 *
-	 * @version 1.6.0
+	 * @version 1.7.6
 	 * @since   1.0.0
 	 */
 	public function handle_social() {
@@ -284,14 +284,8 @@ final class Alg_WC_Wish_List_Core {
 						'title' => $title,
 					), 'https://www.facebook.com/sharer/sharer.php' )
 				),
-				'google'   => array(
-					'active' => filter_var( get_option( Alg_WC_Wish_List_Settings_Social::OPTION_GOOGLE ), FILTER_VALIDATE_BOOLEAN ),
-					'url'    => add_query_arg( array(
-						'url' => urlencode( $url ),
-					), 'https://plus.google.com/share' )
-				),
 				'copy'   => array(
-					'active' => filter_var( get_option( Alg_WC_Wish_List_Settings_Social::OPTION_COPY ), FILTER_VALIDATE_BOOLEAN,'no' ),
+					'active' => filter_var( get_option( Alg_WC_Wish_List_Settings_Social::OPTION_COPY, 'no' ), FILTER_VALIDATE_BOOLEAN ),
 					'url'    => Alg_WC_Wish_List::get_url()
 				),
 			);
@@ -362,18 +356,19 @@ final class Alg_WC_Wish_List_Core {
 	/**
 	 * Manages Shortcodes
 	 *
-	 * @version 1.2.10
+	 * @version 1.7.3
 	 * @since   1.0.0
 	 */
 	private function handle_shortcodes() {
 		add_shortcode( Alg_WC_Wish_List_Shortcodes::SHORTCODE_WISH_LIST, array( Alg_WC_Wish_List_Shortcodes::get_class_name(), 'sc_alg_wc_wl' ) );
 		add_shortcode( Alg_WC_Wish_List_Shortcodes::SHORTCODE_WISH_LIST_COUNT, array( Alg_WC_Wish_List_Shortcodes::get_class_name(), 'sc_alg_wc_wl_counter' ) );
+		add_shortcode( Alg_WC_Wish_List_Shortcodes::SHORTCODE_WISH_LIST_REMOVE_ALL_BTN, array( Alg_WC_Wish_List_Shortcodes::get_class_name(), 'sc_alg_wc_wl_remove_all_btn' ) );
 	}
 
 	/**
 	 * Handle Ajax requisitions
 	 *
-	 * @version 1.3.0
+	 * @version 1.7.3
 	 * @since   1.0.0
 	 */
 	function handle_ajax() {
@@ -385,12 +380,17 @@ final class Alg_WC_Wish_List_Core {
 		$action = Alg_WC_Wish_List_Ajax::ACTION_GET_WISH_LIST;
 		add_action( "wp_ajax_nopriv_{$action}", array( Alg_WC_Wish_List_Ajax::get_class_name(), 'get_wish_list' ) );
 		add_action( "wp_ajax_{$action}", array( Alg_WC_Wish_List_Ajax::get_class_name(), 'get_wish_list' ) );
+
+		// Remove all button
+		$action = Alg_WC_Wish_List_Ajax::ACTION_REMOVE_ALL_FROM_WISH_LIST;
+		add_action( "wp_ajax_nopriv_{$action}", array( Alg_WC_Wish_List_Ajax::get_class_name(), 'remove_all_from_wish_list' ) );
+		add_action( "wp_ajax_{$action}", array( Alg_WC_Wish_List_Ajax::get_class_name(), 'remove_all_from_wish_list' ) );
 	}
 
 	/**
 	 * Localize scripts to load dynamic vars in JS
 	 *
-	 * @version 1.5.9
+	 * @version 1.7.3
 	 * @since   1.0.0
 	 */
 	function localize_scripts() {
@@ -400,8 +400,10 @@ final class Alg_WC_Wish_List_Core {
 		}
 		wp_localize_script( 'alg-wc-wish-list', 'alg_wc_wl',
 			array(
-				'ajaxurl'  => $ajax_url,
-				'fa_icons' => array( 'copy' => apply_filters( 'alg_wc_wl_fa_icon_class', '', 'copy' ) )
+				'ajaxurl'          => $ajax_url,
+				'fa_icons'         => array( 'copy' => apply_filters( 'alg_wc_wl_fa_icon_class', '', 'copy' ) ),
+				'error_text'       => apply_filters( 'alg_wc_wl_error_text', __( 'Sorry, Some error occurred. Please, try again later.', 'wish-list-for-woocommerce' ) ),
+				'all_removed_text' => apply_filters( 'alg_wc_wl_all_removed_text', __( 'All the items have been removed from your wish list.', 'wish-list-for-woocommerce' ) )
 			)
 		);
 		Alg_WC_Wish_List_Toggle_Btn::localize_script( 'alg-wc-wish-list' );
@@ -524,7 +526,7 @@ final class Alg_WC_Wish_List_Core {
 	/**
 	 * get_font_awesome_icon_class.
 	 *
-	 * @version 1.6.2
+	 * @version 1.7.2
 	 * @since   1.5.9
 	 *
 	 * @param $icon
@@ -547,6 +549,9 @@ final class Alg_WC_Wish_List_Core {
 				break;
 			case 'copy':
 				$class = 'fas fa-copy';
+				break;
+			case 'remove_btn':
+				$class = 'fas fa-2x fa-times-circle';
 				break;
 		}
         return $class;

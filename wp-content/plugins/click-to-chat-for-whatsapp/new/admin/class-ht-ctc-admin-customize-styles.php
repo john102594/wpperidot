@@ -12,64 +12,13 @@ if ( ! class_exists( 'HT_CTC_Admin_Customize_Styles' ) ) :
 
 class HT_CTC_Admin_Customize_Styles {
 
-    /**
-     * class name to use at add_settings_field
-     * sf_class - settings field class names
-     */
-    public $s1_class = '';
-    public $s2_class = '';
-    public $s3_class = '';
-    public $s3_1_class = '';
-    public $s4_class = '';
-    public $s5_class = '';
-    public $s6_class = '';
-    public $s7_class = '';
-    public $s7_1_class = '';
-    public $s8_class = '';
-    public $s99_class = '';
-    public $cs_class = '';
-
+    public $display_all_styles_checkbox = 'show';
+    
     // public function __construct() {
     //     // $this->this_variables();
     // }
     
-    public function this_variables() {
-
-        $ht_ctc_othersettings = get_option('ht_ctc_othersettings');
-        $ht_ctc_chat = get_option('ht_ctc_chat_options');
-        $ht_ctc_cs = get_option('ht_ctc_cs_options');
-
-        // if group or share enable display on all.
-        if ( isset($ht_ctc_othersettings['enable_group']) || isset($ht_ctc_othersettings['enable_share']) ) {
-            $this->sf_class = "ht_ctc_display";
-            $this->cs_class .= 'ht_ctc_display_none';
-        } else {
-            // only chat enabled.
-
-            if ( !isset( $ht_ctc_cs['display_allstyles'] ) ) {
-
-                $style_d = (isset($ht_ctc_chat['style_desktop'])) ? esc_attr($ht_ctc_chat['style_desktop']) : '';
-                $style_m = (isset($ht_ctc_chat['style_mobile'])) ? esc_attr($ht_ctc_chat['style_mobile']) : '';
-
-                $this->s1_class .= ( '1' == $style_d || '1' == $style_m ) ? '' : 'ht_ctc_display_none';
-                $this->s2_class .= ( '2' == $style_d || '2' == $style_m ) ? '' : 'ht_ctc_display_none';
-                $this->s3_class .= ( '3' == $style_d || '3' == $style_m ) ? '' : 'ht_ctc_display_none';
-                $this->s3_1_class .= ( '3_1' == $style_d || '3_1' == $style_m ) ? '' : 'ht_ctc_display_none';
-                $this->s4_class .= ( '4' == $style_d || '4' == $style_m ) ? '' : 'ht_ctc_display_none';
-                $this->s5_class .= ( '5' == $style_d || '5' == $style_m ) ? '' : 'ht_ctc_display_none';
-                $this->s6_class .= ( '6' == $style_d || '6' == $style_m ) ? '' : 'ht_ctc_display_none';
-                $this->s7_class .= ( '7' == $style_d || '7' == $style_m ) ? '' : 'ht_ctc_display_none';
-                $this->s7_1_class .= ( '7_1' == $style_d || '7_1' == $style_m ) ? '' : 'ht_ctc_display_none';
-                $this->s8_class .= ( '8' == $style_d || '8' == $style_m ) ? '' : 'ht_ctc_display_none';
-                $this->s99_class .= ( '99' == $style_d || '99' == $style_m ) ? '' : 'ht_ctc_display_none';
-            }
-        }
-
-    }
-
     public function menu() {
-
-        $this->this_variables();
 
         add_submenu_page(
             'click-to-chat',
@@ -115,35 +64,119 @@ class HT_CTC_Admin_Customize_Styles {
     
     public function settings() {
 
-        register_setting( 'ht_ctc_cs_page_settings_fields', 'ht_ctc_s1' , array( $this, 'options_sanitize' ) );
-        register_setting( 'ht_ctc_cs_page_settings_fields', 'ht_ctc_s2' , array( $this, 'options_sanitize' ) );
-        register_setting( 'ht_ctc_cs_page_settings_fields', 'ht_ctc_s3' , array( $this, 'options_sanitize' ) );
-        register_setting( 'ht_ctc_cs_page_settings_fields', 'ht_ctc_s3_1' , array( $this, 'options_sanitize' ) );
-        register_setting( 'ht_ctc_cs_page_settings_fields', 'ht_ctc_s4' , array( $this, 'options_sanitize' ) );
-        register_setting( 'ht_ctc_cs_page_settings_fields', 'ht_ctc_s5' , array( $this, 'options_sanitize' ) );
-        register_setting( 'ht_ctc_cs_page_settings_fields', 'ht_ctc_s6' , array( $this, 'options_sanitize' ) );
-        register_setting( 'ht_ctc_cs_page_settings_fields', 'ht_ctc_s7' , array( $this, 'options_sanitize' ) );
-        register_setting( 'ht_ctc_cs_page_settings_fields', 'ht_ctc_s7_1' , array( $this, 'options_sanitize' ) );
-        register_setting( 'ht_ctc_cs_page_settings_fields', 'ht_ctc_s8' , array( $this, 'options_sanitize' ) );
-        register_setting( 'ht_ctc_cs_page_settings_fields', 'ht_ctc_s99' , array( $this, 'options_sanitize' ) );
+        $ht_ctc_othersettings = get_option('ht_ctc_othersettings');
+        $ht_ctc_chat = get_option('ht_ctc_chat_options');
+        $ht_ctc_cs = get_option('ht_ctc_cs_options');
+
+        // @uses for register_setting, add_settings_field
+        $styles_list = [
+            'ht_ctc_s1',
+            'ht_ctc_s2',
+            'ht_ctc_s3',
+            'ht_ctc_s3_1',
+            'ht_ctc_s4',
+            'ht_ctc_s5',
+            'ht_ctc_s6',
+            'ht_ctc_s7',
+            'ht_ctc_s7_1',
+            'ht_ctc_s8',
+            'ht_ctc_s99'
+        ];
+
+
+        // 
+        /**
+         * Display all - if group or share enabled or display_allstyles option is checked.
+         */
+        if ( isset($ht_ctc_othersettings['enable_group']) || isset($ht_ctc_othersettings['enable_share']) ) {
+            // load all styles
+            $this->display_all_styles_checkbox = 'hide';
+
+        } else {
+            // only chat enabled.
+
+            // display_allstyles option is checked.
+            if ( !isset( $ht_ctc_cs['display_allstyles'] ) ) {
+
+                $style_d = (isset($ht_ctc_chat['style_desktop'])) ? esc_attr($ht_ctc_chat['style_desktop']) : '';
+                $style_m = (isset($ht_ctc_chat['style_mobile'])) ? esc_attr($ht_ctc_chat['style_mobile']) : '';
+
+                // $styles_list redefined..
+                $styles_list = [];
+
+                if ( '' !== $style_d ) {
+                    array_push($styles_list, "ht_ctc_s$style_d");
+                }
+
+                if ( !isset($ht_ctc_chat['same_settings']) && '' !== $style_m && $style_d !== $style_m ) {
+                    array_push($styles_list, "ht_ctc_s$style_m");
+                }
+
+                // // woo style and if not match with style desktop, mobile.
+                // $woo = get_option('ht_ctc_woo_options');
+                // $woo_style = (isset($woo['woo_style'])) ? esc_attr($woo['woo_style']) : '';
+                // if ( '' !== $woo_style && $style_d !== $woo_style && $style_m !== $woo_style ) {
+                //     array_push($styles_list, "ht_ctc_s$woo_style");
+                // }
+
+            }
+        }
+
+
+        // register_setting
+        foreach ($styles_list as $s) {
+           
+            register_setting( 
+                'ht_ctc_cs_page_settings_fields', 
+                $s, 
+                [$this, 'options_sanitize']
+            );
+
+        }
+
         register_setting( 'ht_ctc_cs_page_settings_fields', 'ht_ctc_cs_options' , array( $this, 'options_sanitize' ) );
-        
-        add_settings_section( 'ht_ctc_cs_settings_sections_add', '', array( $this, 'main_settings_section_cb' ), 'ht_ctc_cs_page_settings_sections_do' );
-        
-        add_settings_field( 'ht_ctc_s1', 'Style-1', array( $this, 'ht_ctc_s1_cb' ), 'ht_ctc_cs_page_settings_sections_do', 'ht_ctc_cs_settings_sections_add', array('class' => $this->s1_class ) );
-        add_settings_field( 'ht_ctc_s2', 'Style-2', array( $this, 'ht_ctc_s2_cb' ), 'ht_ctc_cs_page_settings_sections_do', 'ht_ctc_cs_settings_sections_add', array('class' => $this->s2_class ) );
-        add_settings_field( 'ht_ctc_s3', 'Style-3', array( $this, 'ht_ctc_s3_cb' ), 'ht_ctc_cs_page_settings_sections_do', 'ht_ctc_cs_settings_sections_add', array('class' => $this->s3_class ) );
-        add_settings_field( 'ht_ctc_s3_1', 'Style-3 Extend', array( $this, 'ht_ctc_s3_1_cb' ), 'ht_ctc_cs_page_settings_sections_do', 'ht_ctc_cs_settings_sections_add', array('class' => $this->s3_1_class ) );
-        add_settings_field( 'ht_ctc_s4', 'Style-4', array( $this, 'ht_ctc_s4_cb' ), 'ht_ctc_cs_page_settings_sections_do', 'ht_ctc_cs_settings_sections_add', array('class' => $this->s4_class ) );
-        add_settings_field( 'ht_ctc_s5', 'Style-5', array( $this, 'ht_ctc_s5_cb' ), 'ht_ctc_cs_page_settings_sections_do', 'ht_ctc_cs_settings_sections_add', array('class' => $this->s5_class ) );
-        add_settings_field( 'ht_ctc_s6', 'Style-6', array( $this, 'ht_ctc_s6_cb' ), 'ht_ctc_cs_page_settings_sections_do', 'ht_ctc_cs_settings_sections_add', array('class' => $this->s6_class ) );
-        add_settings_field( 'ht_ctc_s7', 'Style-7', array( $this, 'ht_ctc_s7_cb' ), 'ht_ctc_cs_page_settings_sections_do', 'ht_ctc_cs_settings_sections_add', array('class' => $this->s7_class ) );
-        add_settings_field( 'ht_ctc_s7_1', 'Style-7 Extend', array( $this, 'ht_ctc_s7_1_cb' ), 'ht_ctc_cs_page_settings_sections_do', 'ht_ctc_cs_settings_sections_add', array('class' => $this->s7_1_class ) );
-        add_settings_field( 'ht_ctc_s8', 'Style-8', array( $this, 'ht_ctc_s8_cb' ), 'ht_ctc_cs_page_settings_sections_do', 'ht_ctc_cs_settings_sections_add', array('class' => $this->s8_class ) );
-        add_settings_field( 'ht_ctc_s99', 'Style-99', array( $this, 'ht_ctc_s99_cb' ), 'ht_ctc_cs_page_settings_sections_do', 'ht_ctc_cs_settings_sections_add', array('class' => $this->s99_class ) );
-        add_settings_field( 'ht_ctc_cs', '', array( $this, 'ht_ctc_cs_cb' ), 'ht_ctc_cs_page_settings_sections_do', 'ht_ctc_cs_settings_sections_add', array('class' => $this->cs_class ) );
+
         
         
+        // check for options.php, _GET page = click-to-chat-customize-styles
+        $get_url = ( isset($_GET) && isset($_GET['page']) && 'click-to-chat-customize-styles' == $_GET['page'] ) ? true : false;
+        
+        $options_page = false;
+        // if request url have options.php .. (or if requesturl is not set.. or empty ) then $options_page = true
+        if ( isset($_SERVER['REQUEST_URI']) && !empty($_SERVER['REQUEST_URI']) ) {
+            if ( false !== strpos( $_SERVER['REQUEST_URI'], 'options.php' ) ) {
+                // if options.php page
+                $options_page = true;
+            }
+        } else {
+            $options_page = true;
+        }
+        
+
+        // if its - options.php page or _GET page = click-to-chat-customize-styles - load settings fields.. (or if request url is not set or empty - no risk)
+        if ( true == $options_page || true == $get_url ) {
+
+            add_settings_section( 'ht_ctc_cs_settings_sections_add', '', array( $this, 'main_settings_section_cb' ), 'ht_ctc_cs_page_settings_sections_do' );
+
+            // add_settings_field
+            foreach ($styles_list as $s) {
+
+                $name = str_replace( 'ht_ctc_s', 'Style ', $s );
+            
+                add_settings_field( 
+                    $s, 
+                    $name, 
+                    [$this, "{$s}_cb"],
+                    'ht_ctc_cs_page_settings_sections_do',
+                    'ht_ctc_cs_settings_sections_add'
+                );
+
+            }
+
+            add_settings_field( 'ht_ctc_cs', '', array( $this, 'ht_ctc_cs_cb' ), 'ht_ctc_cs_page_settings_sections_do', 'ht_ctc_cs_settings_sections_add' );
+        
+        }
+
     }
 
     public function main_settings_section_cb() {
@@ -168,31 +201,29 @@ class HT_CTC_Admin_Customize_Styles {
         $count = ( isset( $options['count']) ) ? esc_attr( $options['count'] ) : '1';
         $count++;
 
+        
+        $display_allstyles = ( isset( $options['display_allstyles']) ) ? esc_attr( $options['display_allstyles'] ) : '';
+
+        $hide_checkbox = '';
+        if ( isset( $this->display_all_styles_checkbox ) && 'hide' == $this->display_all_styles_checkbox ) {
+            $hide_checkbox = 'ctc_init_display_none';
+        }
+
         ?>
         <!-- not make empty table -->
         <input name="<?= $dbrow; ?>[count]" value="<?= $count; ?>" type="hidden" class="hide" >
 
-        <?php
-        // Display all Styles
-        if ( isset( $options['display_allstyles'] ) ) {
-            ?>
+        <!-- display all styles -->
+        <div class="display_all_styles_checkbox <?= $hide_checkbox ?>">
             <p>
                 <label>
-                    <input name="<?= $dbrow; ?>[display_allstyles]" type="checkbox" value="1" <?php checked( $options['display_allstyles'], 1 ); ?> id="display_allstyles" />
+                    <input name="<?= $dbrow; ?>[display_allstyles]" type="checkbox" value="1" <?php checked( $display_allstyles, 1 ); ?> id="display_allstyles" />
                     <span><?php _e( 'Display all Styles', 'click-to-chat-for-whatsapp' ); ?></span>
                 </label>
             </p>
-            <?php
-        } else {
-        ?>
-        <p>
-            <label>
-                <input name="<?= $dbrow; ?>[display_allstyles]" type="checkbox" value="1" id="display_allstyles" />
-                <span><?php _e( 'Display all Styles', 'click-to-chat-for-whatsapp' ); ?></span>
-            </label>
-        </p>
+        </div>
+
         <?php
-        }
     }
 
 
@@ -542,12 +573,15 @@ class HT_CTC_Admin_Customize_Styles {
             </div>
             <div class="input-field col s6">
                 <input class="ht-ctc-color" name="ht_ctc_s3_1[s3_bg_color_hover]" data-default-color="#25D366" value="<?= $s3_bg_color_hover; ?>" id="s3_bg_color_hover" type="text">
-                <p class="description"><?php _e( 'E.g. Colors: #25D366, #20b038', 'click-to-chat-for-whatsapp' ); ?> </p>
+                <p class="description"><?php _e( 'E.g. ', 'click-to-chat-for-whatsapp' ); ?> #25D366, #20b038</p>
             </div>
         </div>
         <?php
 
         // shadow
+        ?>
+        <div class="s3_box_shadow">
+        <?php
         if ( isset( $options['s3_box_shadow'] ) ) {
         ?>
         <p>
@@ -567,14 +601,20 @@ class HT_CTC_Admin_Customize_Styles {
             </p>
             <?php
         }
+        ?>
+        </div>
+        <?php
 
         // shadow on hover
+        ?>
+        <div class="s3_box_shadow_hover ctc_init_display_none">
+        <?php
         if ( isset( $options['s3_box_shadow_hover'] ) ) {
         ?>
         <p>
             <label>
                 <input name="ht_ctc_s3_1[s3_box_shadow_hover]" type="checkbox" value="1" <?php checked( $options['s3_box_shadow_hover'], 1 ); ?> id="s3_box_shadow_hover" />
-                <span><?php _e( 'Shadow on Hover', 'click-to-chat-for-whatsapp' ); ?></span>
+                <span><?php _e( 'Shadow on Hover only', 'click-to-chat-for-whatsapp' ); ?></span>
             </label>
         </p>
         <?php
@@ -583,14 +623,14 @@ class HT_CTC_Admin_Customize_Styles {
             <p>
                 <label>
                     <input name="ht_ctc_s3_1[s3_box_shadow_hover]" type="checkbox" value="1" id="s3_box_shadow_hover" />
-                    <span><?php _e( 'Shadow on Hover', 'click-to-chat-for-whatsapp' ); ?></span>
+                    <span><?php _e( 'Shadow on Hover only', 'click-to-chat-for-whatsapp' ); ?></span>
                 </label>
             </p>
             <?php
         }
         ?>
-
-        <br><br>
+        </div>
+        <br>
 
         <?php
         $select_cta_type = ( isset( $options['cta_type']) ) ? esc_attr( $options['cta_type'] ) : '';
@@ -884,6 +924,7 @@ class HT_CTC_Admin_Customize_Styles {
             <div class="input-field col s6">
                 <input name="ht_ctc_s5[s5_content_width]" value="<?= $s5_content_width ?>" id="s5_content_width" type="text" class="" >
                 <label for="s5_content_width"><?php _e( 'Content Box Width', 'click-to-chat-for-whatsapp' ); ?></label>
+                <p class="description"><?php _e( 'E.g.', 'click-to-chat-for-whatsapp' ); ?> 270px, 100%</p>
             </div>
         </div>
 
@@ -1014,6 +1055,8 @@ class HT_CTC_Admin_Customize_Styles {
         $cta_textcolor_hover = ( isset( $options['cta_textcolor_hover']) ) ? esc_attr( $options['cta_textcolor_hover'] ) : '';
         $cta_bgcolor = ( isset( $options['cta_bgcolor']) ) ? esc_attr( $options['cta_bgcolor'] ) : '';
         $cta_bgcolor_hover = ( isset( $options['cta_bgcolor_hover']) ) ? esc_attr( $options['cta_bgcolor_hover'] ) : '';
+        $cta_font_size = ( isset( $options['cta_font_size']) ) ? esc_attr( $options['cta_font_size'] ) : '';
+
         ?>
         <ul class="collapsible ht_ctc_s7" data-collapsible="accordion">
         <li>
@@ -1134,6 +1177,18 @@ class HT_CTC_Admin_Customize_Styles {
             </div>
         </div>
 
+        <!-- font size -->
+        <div class="row cta_font_size cta_stick">
+            <div class="col s6">
+                <p><?php _e( 'Font Size', 'click-to-chat-for-whatsapp' ); ?></p>
+            </div>
+            <div class="input-field col s6">
+                <input name="<?= $dbrow; ?>[cta_font_size]" value="<?= $cta_font_size ?>" id="s7_cta_font_size" type="text" class="" >
+                <label for="s7_cta_font_size"><?php _e( 'Font Size (e.g. 15px)', 'click-to-chat-for-whatsapp' ); ?></label>
+                <span class="helper-text"><?php _e( 'Leave blank for default settings', 'click-to-chat-for-whatsapp' ); ?></span>
+            </div>
+        </div>
+
         </div>
         </div>
         </li>
@@ -1156,6 +1211,7 @@ class HT_CTC_Admin_Customize_Styles {
         $s7_border_size = ( isset( $options['s7_border_size']) ) ? esc_attr( $options['s7_border_size'] ) : '';
         $s7_bgcolor = ( isset( $options['s7_bgcolor']) ) ? esc_attr( $options['s7_bgcolor'] ) : '';
         $s7_bgcolor_hover = ( isset( $options['s7_bgcolor_hover']) ) ? esc_attr( $options['s7_bgcolor_hover'] ) : '';
+        $cta_font_size = ( isset( $options['cta_font_size']) ) ? esc_attr( $options['cta_font_size'] ) : '';
 
         $select_cta_type = ( isset( $options['cta_type']) ) ? esc_attr( $options['cta_type'] ) : '';
 
@@ -1239,6 +1295,18 @@ class HT_CTC_Admin_Customize_Styles {
             </div>
             <div class="input-field col s6">
                 <input id="s7_bgcolor_hover" class="ht-ctc-color" data-default-color="#25d366" name="<?= $dbrow; ?>[s7_bgcolor_hover]" value="<?= $s7_bgcolor_hover ?>" type="text" style="height: 1.375rem;" >
+            </div>
+        </div>
+
+        <!-- font size -->
+        <div class="row cta_font_size cta_stick">
+            <div class="col s6">
+                <p><?php _e( 'Font Size', 'click-to-chat-for-whatsapp' ); ?></p>
+            </div>
+            <div class="input-field col s6">
+                <input name="<?= $dbrow; ?>[cta_font_size]" value="<?= $cta_font_size ?>" id="s7_1_cta_font_size" type="text" class="" >
+                <label for="s7_1_cta_font_size"><?php _e( 'Font Size (e.g. 15px)', 'click-to-chat-for-whatsapp' ); ?></label>
+                <span class="helper-text"><?php _e( 'Leave blank for default settings', 'click-to-chat-for-whatsapp' ); ?></span>
             </div>
         </div>
 
@@ -1449,12 +1517,12 @@ class HT_CTC_Admin_Customize_Styles {
     function ht_ctc_s99_cb() {
 
         $options = get_option('ht_ctc_s99');
-        $s99_dekstop_img_url = ( isset( $options['s99_dekstop_img_url']) ) ? esc_attr( $options['s99_dekstop_img_url'] ) : '';
-        $s99_mobile_img_url = ( isset( $options['s99_mobile_img_url']) ) ? esc_attr( $options['s99_mobile_img_url'] ) : '';
-        $s99_desktop_img_height = ( isset( $options['s99_desktop_img_height']) ) ? esc_attr( $options['s99_desktop_img_height'] ) : '';
-        $s99_desktop_img_width = ( isset( $options['s99_desktop_img_width']) ) ? esc_attr( $options['s99_desktop_img_width'] ) : '';
-        $s99_mobile_img_height = ( isset( $options['s99_mobile_img_height']) ) ? esc_attr( $options['s99_mobile_img_height'] ) : '';
-        $s99_mobile_img_width = ( isset( $options['s99_mobile_img_width']) ) ? esc_attr( $options['s99_mobile_img_width'] ) : '';
+        $s_99_dekstop_img_url = ( isset( $options['s99_dekstop_img_url']) ) ? esc_attr( $options['s99_dekstop_img_url'] ) : '';
+        $s_99_mobile_img_url = ( isset( $options['s99_mobile_img_url']) ) ? esc_attr( $options['s99_mobile_img_url'] ) : '';
+        $s_99_desktop_img_height = ( isset( $options['s99_desktop_img_height']) ) ? esc_attr( $options['s99_desktop_img_height'] ) : '';
+        $s_99_desktop_img_width = ( isset( $options['s99_desktop_img_width']) ) ? esc_attr( $options['s99_desktop_img_width'] ) : '';
+        $s_99_mobile_img_height = ( isset( $options['s99_mobile_img_height']) ) ? esc_attr( $options['s99_mobile_img_height'] ) : '';
+        $s_99_mobile_img_width = ( isset( $options['s99_mobile_img_width']) ) ? esc_attr( $options['s99_mobile_img_width'] ) : '';
         ?>
         <ul class="collapsible ht_ctc_s99" data-collapsible="accordion">
         <li>
@@ -1467,7 +1535,7 @@ class HT_CTC_Admin_Customize_Styles {
                 <p>Image URL</p>
             </div> -->
             <div class="input-field col s12">
-                <input name="ht_ctc_s99[s99_dekstop_img_url]" value="<?= $s99_dekstop_img_url ?>" id="s99_dekstop_img_url" type="text" class="" >
+                <input name="ht_ctc_s99[s99_dekstop_img_url]" value="<?= $s_99_dekstop_img_url ?>" id="s99_dekstop_img_url" type="text" class="" >
                 <label for="s99_dekstop_img_url"><?php _e( 'Image URL - Desktop', 'click-to-chat-for-whatsapp' ); ?></label>
             </div>
         </div>
@@ -1478,7 +1546,7 @@ class HT_CTC_Admin_Customize_Styles {
                 <p>Image URL</p>
             </div> -->
             <div class="input-field col s12">
-                <input name="ht_ctc_s99[s99_mobile_img_url]" value="<?= $s99_mobile_img_url ?>" id="s99_mobile_img_url" type="text" class="" >
+                <input name="ht_ctc_s99[s99_mobile_img_url]" value="<?= $s_99_mobile_img_url ?>" id="s99_mobile_img_url" type="text" class="" >
                 <label for="s99_mobile_img_url"><?php _e( 'Image URL - Mobile', 'click-to-chat-for-whatsapp' ); ?></label>
             </div>
         </div>
@@ -1489,7 +1557,7 @@ class HT_CTC_Admin_Customize_Styles {
                 <p><?php _e( 'Desktop - Image Height', 'click-to-chat-for-whatsapp' ); ?></p>
             </div>
             <div class="input-field col s6">
-                <input name="ht_ctc_s99[s99_desktop_img_height]" value="<?= $s99_desktop_img_height ?>" id="s99_desktop_img_height" type="text" class="" >
+                <input name="ht_ctc_s99[s99_desktop_img_height]" value="<?= $s_99_desktop_img_height ?>" id="s99_desktop_img_height" type="text" class="" >
                 <label for="s99_desktop_img_height"><?php _e( 'Desktop - Image Height', 'click-to-chat-for-whatsapp' ); ?></label>
             </div>
         </div>
@@ -1500,7 +1568,7 @@ class HT_CTC_Admin_Customize_Styles {
                 <p><?php _e( 'Desktop - Image Width', 'click-to-chat-for-whatsapp' ); ?></p>
             </div>
             <div class="input-field col s6">
-                <input name="ht_ctc_s99[s99_desktop_img_width]" value="<?= $s99_desktop_img_width ?>" id="s99_desktop_img_width" type="text" class="" >
+                <input name="ht_ctc_s99[s99_desktop_img_width]" value="<?= $s_99_desktop_img_width ?>" id="s99_desktop_img_width" type="text" class="" >
                 <label for="s99_desktop_img_width"><?php _e( 'Desktop - Image Width', 'click-to-chat-for-whatsapp' ); ?></label>
             </div>
         </div>
@@ -1511,7 +1579,7 @@ class HT_CTC_Admin_Customize_Styles {
                 <p><?php _e( 'Mobile - Image Height', 'click-to-chat-for-whatsapp' ); ?></p>
             </div>
             <div class="input-field col s6">
-                <input name="ht_ctc_s99[s99_mobile_img_height]" value="<?= $s99_mobile_img_height ?>" id="s99_mobile_img_height" type="text" class="" >
+                <input name="ht_ctc_s99[s99_mobile_img_height]" value="<?= $s_99_mobile_img_height ?>" id="s99_mobile_img_height" type="text" class="" >
                 <label for="s99_mobile_img_height"><?php _e( 'Mobile - Image Height', 'click-to-chat-for-whatsapp' ); ?></label>
             </div>
         </div>
@@ -1522,7 +1590,7 @@ class HT_CTC_Admin_Customize_Styles {
                 <p><?php _e( 'Mobile - Image Width', 'click-to-chat-for-whatsapp' ); ?></p>
             </div>
             <div class="input-field col s6">
-                <input name="ht_ctc_s99[s99_mobile_img_width]" value="<?= $s99_mobile_img_width ?>" id="s99_mobile_img_width" type="text" class="" >
+                <input name="ht_ctc_s99[s99_mobile_img_width]" value="<?= $s_99_mobile_img_width ?>" id="s99_mobile_img_width" type="text" class="" >
                 <label for="s99_mobile_img_width"><?php _e( 'Mobile - Image Width', 'click-to-chat-for-whatsapp' ); ?></label>
             </div>
         </div>
@@ -1618,6 +1686,5 @@ $ht_ctc_admin_customize_styles = new HT_CTC_Admin_Customize_Styles();
 
 add_action('admin_menu', array($ht_ctc_admin_customize_styles, 'menu') );
 add_action('admin_init', array($ht_ctc_admin_customize_styles, 'settings') );
-
 
 endif; // END class_exists check

@@ -1,0 +1,146 @@
+2021-11-30T01:56:35+00:00 NOTICE sync_store :: posting data :: Array
+(
+    [store_post] => Array
+        (
+            [id] => 605ff9ffa66e5
+            [is_syncing] => 
+            [platform] => woocommerce
+            [list_id] => 68af6a0cc5
+            [name] => SKKEEP Tienda oficial
+            [domain] => http://skkeep.com
+            [email_address] => johnalbertrf@gmail.com
+            [currency_code] => COP
+            [money_format] => $
+            [primary_locale] => es_CO
+            [timezone] => America/Bogota
+            [phone] => 3004075406
+            [address] => Array
+                (
+                    [address1] => kra 77a #85 130
+                    [city] => Barranquilla
+                    [province] => ATL
+                    [postal_code] => 88852
+                    [country] => CO
+                    [country_code] => CO
+                    [phone] => 3004075406
+                    [company] => SKKEEP Tienda oficial
+                )
+
+        )
+
+)
+
+2021-11-30T01:56:38+00:00 NOTICE sync_store :: posting data :: Array
+(
+    [store_post] => Array
+        (
+            [id] => 605ff9ffa66e5
+            [is_syncing] => 
+            [platform] => woocommerce
+            [list_id] => 68af6a0cc5
+            [name] => SKKEEP Tienda oficial
+            [domain] => http://skkeep.com
+            [email_address] => johnalbertrf@gmail.com
+            [currency_code] => COP
+            [money_format] => $
+            [primary_locale] => es_CO
+            [timezone] => America/Bogota
+            [phone] => 3004075406
+            [address] => Array
+                (
+                    [address1] => kra 77a #85 130
+                    [city] => Barranquilla
+                    [province] => ATL
+                    [postal_code] => 88852
+                    [country] => CO
+                    [country_code] => CO
+                    [phone] => 3004075406
+                    [company] => SKKEEP Tienda oficial
+                )
+
+        )
+
+)
+
+2021-11-30T01:56:40+00:00 NOTICE sync_store :: posting data :: Array
+(
+    [store_post] => Array
+        (
+            [id] => 605ff9ffa66e5
+            [is_syncing] => 
+            [platform] => woocommerce
+            [list_id] => 68af6a0cc5
+            [name] => SKKEEP Tienda oficial
+            [domain] => http://skkeep.com
+            [email_address] => johnalbertrf@gmail.com
+            [currency_code] => COP
+            [money_format] => $
+            [primary_locale] => es_CO
+            [timezone] => America/Bogota
+            [phone] => 3004075406
+            [address] => Array
+                (
+                    [address1] => kra 77a #85 130
+                    [city] => Barranquilla
+                    [province] => ATL
+                    [postal_code] => 88852
+                    [country] => CO
+                    [country_code] => CO
+                    [phone] => 3004075406
+                    [company] => SKKEEP Tienda oficial
+                )
+
+        )
+
+)
+
+2021-11-30T01:56:42+00:00 NOTICE mailchimp-woocommerce-sync.started :: Starting Sync :: Tue, Nov 30, 2021 1:56 AM
+2021-11-30T01:56:42+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Process_Coupons queued :: page 1
+2021-11-30T01:57:00+00:00 NOTICE sync.full_sync_manager.queue :: Starting PRODUCTS queueing.
+2021-11-30T01:57:00+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Process_Products queued :: page 1
+2021-11-30T01:57:00+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Process_Products queued :: page 2
+2021-11-30T01:57:02+00:00 NOTICE coupon_sync.completed :: Done with the coupon queueing.
+2021-11-30T01:57:03+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Product queued :: obj_id 2460
+2021-11-30T01:57:03+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Product queued :: obj_id 2462
+2021-11-30T01:57:05+00:00 NOTICE product_sync.completed :: Done with the product queuing
+2021-11-30T01:57:06+00:00 NOTICE product_submit.success :: addStoreProduct :: #2460
+2021-11-30T01:57:07+00:00 NOTICE product_submit.success :: addStoreProduct :: #2462
+2021-11-30T01:57:30+00:00 NOTICE sync_store :: posting data :: Array
+(
+    [store_post] => Array
+        (
+            [id] => 605ff9ffa66e5
+            [is_syncing] => 1
+            [platform] => woocommerce
+            [list_id] => 68af6a0cc5
+            [name] => SKKEEP Tienda oficial
+            [domain] => http://skkeep.com
+            [email_address] => johnalbertrf@gmail.com
+            [currency_code] => COP
+            [money_format] => $
+            [primary_locale] => es_CO
+            [timezone] => America/Bogota
+            [phone] => 3004075406
+            [address] => Array
+                (
+                    [address1] => kra 77a #85 130
+                    [city] => Barranquilla
+                    [province] => ATL
+                    [postal_code] => 88852
+                    [country] => CO
+                    [country_code] => CO
+                    [phone] => 3004075406
+                    [company] => SKKEEP Tienda oficial
+                )
+
+        )
+
+)
+
+2021-11-30T01:59:35+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Process_Orders queued :: page 1
+2021-11-30T01:59:37+00:00 NOTICE order_sync.completed :: Done with the order queueing.
+2021-11-30T02:00:25+00:00 NOTICE sync.completed :: Finished Sync :: Tue, Nov 30, 2021 2:00 AM (total time: 00:03:44)
+2021-11-30T21:58:21+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Product starts in 5 seconds :: obj_id 2462
+2021-11-30T21:58:50+00:00 NOTICE product_submit.success :: updateStoreProduct :: #2462
+2021-11-30T21:59:39+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Product starts in 5 seconds :: obj_id 2462
+2021-11-30T21:59:57+00:00 NOTICE product_submit.success :: updateStoreProduct :: #2462

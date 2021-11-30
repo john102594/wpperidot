@@ -2,7 +2,7 @@
 /*
 Plugin Name: SiteOrigin CSS
 Description: An advanced CSS editor from SiteOrigin.
-Version: 1.2.14
+Version: 1.4.3
 Author: SiteOrigin
 Author URI: https://siteorigin.com
 Plugin URI: https://siteorigin.com/css/
@@ -14,7 +14,7 @@ Text Domain: so-css
 // Handle the legacy CSS editor that came with SiteOrigin themes
 include plugin_dir_path( __FILE__ ) . 'inc/legacy.php';
 
-define( 'SOCSS_VERSION', '1.2.14' );
+define( 'SOCSS_VERSION', '1.4.3' );
 define( 'SOCSS_JS_SUFFIX', '.min' );
 
 /**
@@ -48,6 +48,7 @@ class SiteOrigin_CSS {
 		
 		add_action( 'wp_ajax_socss_get_post_css', array( $this, 'admin_action_get_post_css' ) );
 		add_action( 'wp_ajax_socss_get_revisions_list', array( $this, 'admin_action_get_revisions_list' ) );
+		add_action( 'wp_ajax_socss_save_css', array( $this, 'admin_action_save_css' ) );
   
 		if ( ! is_admin() ) {
 			if( isset( $_GET['so_css_preview'] )  ) {
@@ -260,7 +261,7 @@ class SiteOrigin_CSS {
 	 * Action to run on the admin action.
 	 */
 	function action_admin_menu() {
-		add_theme_page( __( 'Custom CSS', 'so-css' ), __( 'Custom CSS', 'so-css' ), 'edit_theme_options', 'so_custom_css', array(
+		add_theme_page( esc_html__( 'Custom CSS', 'so-css' ), esc_html__( 'Custom CSS', 'so-css' ), 'edit_theme_options', 'so_custom_css', array(
 			$this,
 			'display_admin_page'
 		) );
@@ -291,10 +292,10 @@ class SiteOrigin_CSS {
 		$screen = get_current_screen();
 		$screen->add_help_tab( array(
 			'id'      => 'custom-css',
-			'title'   => __( 'Custom CSS', 'so-css' ),
+			'title'   => esc_html__( 'Custom CSS', 'so-css' ),
 			'content' => '<p>'
-						 . sprintf( __( "SiteOrigin CSS adds any custom CSS you enter here into your site's header. ", 'so-css' ) )
-						 . __( "These changes will persist across updates so it's best to make all your changes here. ", 'so-css' )
+						 . sprintf( esc_html__( "SiteOrigin CSS adds any custom CSS you enter here into your site's header. ", 'so-css' ) )
+						 . esc_html__( "These changes will persist across updates so it's best to make all your changes here. ", 'so-css' )
 						 . '</p>'
 		) );
 	}
@@ -327,10 +328,7 @@ class SiteOrigin_CSS {
 		// There are conflicts between CSS linting and the built in WordPress color picker, so use something else
 		wp_enqueue_style( 'siteorigin-custom-css-minicolors', plugin_dir_url( __FILE__ ) . 'lib/minicolors/jquery.minicolors.css', array(), '2.1.7' );
 		wp_enqueue_script( 'siteorigin-custom-css-minicolors', plugin_dir_url( __FILE__ ) . 'lib/minicolors/jquery.minicolors' . SOCSS_JS_SUFFIX . '.js', array( 'jquery' ), '2.1.7' );
-		
-		// We need Font Awesome
-		wp_enqueue_style( 'siteorigin-custom-css-font-awesome', plugin_dir_url( __FILE__ ) . 'lib/fontawesome/css/font-awesome.min.css', array(), SOCSS_VERSION );
-		
+
 		// URI parsing for preview navigation
 		wp_enqueue_script( 'siteorigin-uri', plugin_dir_url( __FILE__ ) . 'js/URI' . SOCSS_JS_SUFFIX . '.js', array(), SOCSS_VERSION, true );
 		
@@ -355,15 +353,16 @@ class SiteOrigin_CSS {
 			'homeURL' => $home_url,
 			'postCssUrlRoot' => wp_nonce_url( admin_url('admin-ajax.php?action=socss_get_post_css'), 'get_post_css' ),
 			'getRevisionsListAjaxUrl' => wp_nonce_url( admin_url('admin-ajax.php?action=socss_get_revisions_list'), 'get_revisions_list' ),
+			'ajaxurl' => wp_nonce_url( admin_url( 'admin-ajax.php' ), 'so-css-ajax' ),
 			'openVisualEditor' => $open_visual_editor,
 			
 			'propertyControllers' => apply_filters( 'siteorigin_css_property_controllers', $this->get_property_controllers() ),
 			
 			'loc' => array(
-				'unchanged'    => __( 'Unchanged', 'so-css' ),
-				'select'       => __( 'Select', 'so-css' ),
-				'select_image' => __( 'Select Image', 'so-css' ),
-				'leave'        => __( 'Are you sure you want to leave without saving?', 'so-css' ),
+				'unchanged'    => esc_html__( 'Unchanged', 'so-css' ),
+				'select'       => esc_html__( 'Select', 'so-css' ),
+				'select_image' => esc_html__( 'Select Image', 'so-css' ),
+				'leave'        => esc_html__( 'Are you sure you want to leave without saving?', 'so-css' ),
 			)
 		) );
 		
@@ -432,9 +431,11 @@ class SiteOrigin_CSS {
 		if ( isset( $links['edit'] ) ) {
 			unset( $links['edit'] );
 		}
-		$links['css_editor'] = '<a href="' . admin_url( 'themes.php?page=so_custom_css' ) . '">' . __( 'CSS Editor', 'so-css' ) . '</a>';
-		$links['support'] = '<a href="https://siteorigin.com/thread/" target="_blank">' . __( 'Support', 'so-css' ) . '</a>';
-		
+		$links['css_editor'] = '<a href="' . admin_url( 'themes.php?page=so_custom_css' ) . '">' . esc_html__( 'CSS Editor', 'so-css' ) . '</a>';
+		$links['support'] = '<a href="https://siteorigin.com/thread/" target="_blank">' . esc_html__( 'Support', 'so-css' ) . '</a>';
+		if ( apply_filters( 'siteorigin_premium_upgrade_teaser', true ) && ! defined( 'SITEORIGIN_PREMIUM_VERSION' ) ) {
+			$links['addons'] = '<a href="https://siteorigin.com/downloads/premium/?featured_addon=plugin/web-font-selector" style="color: #3db634" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Addons', 'so-css' ) . '</a>';
+		}
 		return $links;
 	}
 	
@@ -444,30 +445,30 @@ class SiteOrigin_CSS {
 		$theme = filter_input( INPUT_GET, 'theme' );
 		$time = filter_input( INPUT_GET, 'time', FILTER_VALIDATE_INT );
 		
-		$page_title = __( 'SiteOrigin CSS', 'so-css' );
+		$page_title = esc_html__( 'SiteOrigin CSS', 'so-css' );
 		$theme_obj = wp_get_theme();
 		$theme_name = $theme_obj->get( 'Name' );
-		$editor_description = sprintf( __( 'Changes apply to %s and its child themes', 'so-css' ), $theme_name );
-		$save_button_label = __( 'Save CSS', 'so-css' );
+		$editor_description = sprintf( esc_html__( 'Changes apply to %s and its child themes', 'so-css' ), $theme_name );
+		$save_button_label = esc_html__( 'Save CSS', 'so-css' );
 		$form_save_url = admin_url( 'themes.php?page=so_custom_css' );
 		
 		if ( ! empty( $socss_post_id ) ) {
 			$selected_post = get_post( $socss_post_id );
 			
 			$page_title = sprintf(
-				__( 'Editing CSS for: %s', 'so-css' ),
+				esc_html__( 'Editing CSS for: %s', 'so-css' ),
 				$selected_post->post_title
 			);
 			
 			$editor_description = sprintf(
-				__( 'Changes apply to the %s %s when the current theme is %s or its child themes', 'so-css' ),
+				esc_html__( 'Changes apply to the %s %s when the current theme is %s or its child themes', 'so-css' ),
 				$selected_post->post_type,
 				$selected_post->post_title,
 				$theme_name
 				);
 			$post_type_obj = get_post_type_object( $selected_post->post_type );
 			$post_type_labels = $post_type_obj->labels;
-			$save_button_label = sprintf( __( 'Save %s CSS', 'so-css' ), $post_type_labels->singular_name );
+			$save_button_label = sprintf( esc_html__( 'Save %s CSS', 'so-css' ), $post_type_labels->singular_name );
 			$form_save_url = add_query_arg( 'socss_post_id', urlencode( $socss_post_id ), $form_save_url );
 		}
 		$custom_css = $this->get_custom_css( $this->theme, $socss_post_id );
@@ -480,7 +481,7 @@ class SiteOrigin_CSS {
 		}
 		
 		if ( ! empty ( $current_revision ) ) {
-			$save_button_label = __( 'Revert to this revision', 'so-css' );
+			$save_button_label = esc_html__( 'Revert to this revision', 'so-css' );
 		}
 		
 		if ( ! empty( $custom_css_revisions ) ) {
@@ -533,8 +534,8 @@ class SiteOrigin_CSS {
 	function admin_action_get_post_css() {
 		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'get_post_css' ) ) {
 			wp_die(
-				__( 'The supplied nonce is invalid.', 'siteorigin-panels' ),
-				__( 'Invalid nonce.', 'siteorigin-panels' ),
+				esc_html__( 'The supplied nonce is invalid.', 'so-css' ),
+				esc_html__( 'Invalid nonce.', 'so-css' ),
 				403
 			);
 		}
@@ -554,8 +555,8 @@ class SiteOrigin_CSS {
 	function admin_action_get_revisions_list() {
 		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'get_revisions_list' ) ) {
 			wp_die(
-				__( 'The supplied nonce is invalid.', 'siteorigin-panels' ),
-				__( 'Invalid nonce.', 'siteorigin-panels' ),
+				esc_html__( 'The supplied nonce is invalid.', 'so-css' ),
+				esc_html__( 'Invalid nonce.', 'so-css' ),
 				403
 			);
 		}
@@ -564,6 +565,37 @@ class SiteOrigin_CSS {
 		
 		$this->custom_css_revisions_list( $this->theme, $post_id );
 		
+		wp_die();
+	}
+
+	/**
+	 * Retrieves the past revisions of post specific CSS for the supplied postId.
+	 */
+	function admin_action_save_css() {
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'so-css-ajax' ) ) {
+			wp_die(
+				esc_html__( 'The supplied nonce is invalid.', 'so-css' ),
+				esc_html__( 'Invalid nonce.', 'so-css' ),
+				403
+			);
+		}
+
+		if ( current_user_can( 'edit_theme_options' ) && isset( $_POST['css'] ) ) {
+			// Sanitize CSS input. Should keep most tags, apart from script and style tags.
+			$custom_css = self::sanitize_css( $_POST['css'] );
+			
+			$current = $this->get_custom_css( $this->theme );
+			$this->save_custom_css( $custom_css, $this->theme );
+			
+			// If this has changed, then add a revision.
+			if ( $current != $custom_css ) {
+				$this->add_custom_css_revision( $custom_css, $this->theme );
+				$this->save_custom_css_file( $custom_css, $this->theme );
+
+				// Output the full revisions list.
+				$this->custom_css_revisions_list( $this->theme );
+			}
+		}		
 		wp_die();
 	}
 	
@@ -589,13 +621,13 @@ class SiteOrigin_CSS {
 					<?php if ( ! $is_current ) : ?>
 					</a>
 					<?php endif; ?>
-					(<?php printf( __('%d chars', 'so-css'), strlen( $css ) ) ?>)<?php if ( $i == 0 ) : ?> (<?php _e( 'Latest', 'so-css' ) ?>)<?php endif; ?>
+					(<?php printf( esc_html__( '%d chars', 'so-css' ), strlen( $css ) ) ?>)<?php if ( $i == 0 ) : ?> (<?php esc_html_e( 'Latest', 'so-css' ); ?>)<?php endif; ?>
 				</li>
 				<?php
 				$i++;
 			}
 		} else {
-			printf( '<em>%s</em>', __( 'No revisions yet.', 'so-css' ) );
+			printf( '<em>%s</em>', esc_html__( 'No revisions yet.', 'so-css' ) );
 		}
 	}
 	

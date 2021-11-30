@@ -26,6 +26,9 @@ class HT_CTC_Swift {
 		$this->define( 'HT_CTC_WP_MIN_VERSION', '4.6' );
 		$this->define( 'HT_CTC_PLUGIN_BASENAME', plugin_basename( HT_CTC_PLUGIN_FILE ) );
 		$this->define( 'HT_CTC_BLOG_NAME', get_bloginfo('name') );
+		// $this->define( 'HT_CTC_SITE_URL', get_site_url() );
+		// $this->define( 'HT_CTC_HOME_URL', home_url('/') );
+		// $this->define( 'HT_CTC_HOME_URL', get_bloginfo('url') );
 		
         do_action('ht_ctc_ah_define_constants');
 
@@ -74,7 +77,7 @@ class HT_CTC_Swift {
 
 			$ht_ctc_switch = get_option('ht_ctc_switch');
 
-			if ( 'yes' == $ht_ctc_switch['interface'] ) {
+			if ( isset($ht_ctc_switch['interface']) && 'yes' == $ht_ctc_switch['interface'] ) {
 				$is_new = 'yes';
 			}
 		} 

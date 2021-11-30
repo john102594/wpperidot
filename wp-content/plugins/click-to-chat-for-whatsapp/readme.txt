@@ -1,10 +1,10 @@
 === Click to Chat ===
 Requires at least: 4.6
-Tested up to: 5.7.1
+Tested up to: 5.8.2
 Requires PHP: 5.6
 Contributors: holithemes
-Stable tag: 3.3.2
-Tags: whatsapp, whatsapp business, click to chat, whatsapp chat, whatsapp support, whatsapp group, whatsapp message, social chat, whatsapp wordpress, whatsapp floating button, whatsapp icon, holithemes
+Stable tag: 3.6
+Tags: whatsapp, whatsapp business, click to chat, whatsapp chat, whatsapp support, whatsapp group, whatsapp message, WhatsApp WooCommerce, whatsapp wordpress, whatsapp floating button, whatsapp icon, holithemes
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,7 +27,7 @@ Add your 'WhatsApp' or 'WhatsApp Business' Number. And let your website visitors
 **💻 Desktop:** Navigates to WhatsApp Desktop App / Web WhatsApp page(web.whatsapp.com)
 
 
-= 💎 Styles =
+== 💎 Styles ==
 
 Select a Style that matches your Website design.
 
@@ -35,7 +35,7 @@ Select a Style that matches your Website design.
 * Add your own Image/GIF
 * Custom Element/Design
 * Shortcodes
-* Select different Styles for Mobile, Desktop
+* Different Styles, Positions for Mobile, Desktop
 * All pre-defined styles are customizable
 * Select style, customize to match the website design.
 
@@ -48,9 +48,9 @@ Select a Style that matches your Website design.
 
 Instead of selecting a pre-defined style, add any Image/Animated-image/GIF.
 
-= 🌈 Custom Element = 
+== 🌈 Custom Element == 
 
-Create your own Element/Desing and just add 
+Convert any Element/Design as WhatsApp Chat Element by adding
 * Class name: 'ctc_chat' (or)
 * Id name: 'ctc_chat' (or)
 * Href/link: '#ctc_chat'
@@ -59,13 +59,13 @@ The custom design will navigate to WhatsApp based on plugin settings (WhatsApp N
 
 [Custom Element](https://holithemes.com/plugins/click-to-chat/custom-element/?utm_source=wp&utm_medium=readme&utm_campaign=ht)
 
-= ✳️ Position to Place = 
+== ✳️ Position to Place == 
 
 * Add styles at any position of the screen  
     (not limited to fixed positions).
 * Different positions for Mobile and Desktop.  
      
-= ⏩ Pre-filled Message =
+== ⏩ Pre-filled Message ==
 
 Text that appears at the WhatsApp chat window when the user clicks on the WhatsApp Image/button. 
 
@@ -82,7 +82,9 @@ With these variables, we can understand from which page the user started WhatsAp
  
 [Pre-filled Message](https://holithemes.com/plugins/click-to-chat/pre-filled-message/?utm_source=wp&utm_medium=readme&utm_campaign=ht)
 
-= 🎁 WooCommerce =
+== 🎁 WooCommerce ==
+
+= WooCommerce Single product pages =
 
 Separate 'pre-filled message', 'call to action' settings for WooCommerce Single product pages.
 
@@ -91,11 +93,33 @@ Additional variables, specific to WooCommerce single product page to change valu
 **{product}** -> Product Name
 **{price}** -> Product Price (current price)
 **{regular_price}** -> Regular product price (with out any sale)
-**{sku}** ->Stock keeping unit
+**{sku}** -> Stock keeping unit
+
+
+* After product summary
+
+PRO:
+* Before Main Content
+* Before Product
+* Before Product Summary
+* Product Summary
+* Before Add to Cart Form
+* Before Cart Button
+* After Cart Button
+* After Add to Cart Form
+* After Product
+
+[Add WhatsApp Icon/Button in WooCommerce Product pages](https://holithemes.com/plugins/click-to-chat/add-whatsapp-in-woocommerce-single-product-pages/)
+
+= WooCommerce Shop Page =
+
+Add WhatsApp button/icon at WooCommerce Products list (shop page, related products list)
+
+[Shop page](https://holithemes.com/plugins/click-to-chat/whatsapp-chat-in-woocommerce-shop-page/)
 
 = 📒 Change Settings at page level =
 
-At page level we can overwrite the settings. Each post we can add different Whatsapp Number, prefilled message.
+At page level we can overwrite the settings. Each post we can add different Whatsapp Number, Prefilled Message, Call to Action.
 (while editing the post, at the right side bar 'Click to Chat' metabox)
 
 * WhatsApp Number
@@ -103,9 +127,14 @@ At page level we can overwrite the settings. Each post we can add different What
 * Pre-filled Message
 * Display Settings
 
+PRO:
+* Styles
+* Time Dealy
+* Scroll Dealy
+
 [Page level settings](https://holithemes.com/plugins/click-to-chat/change-values-at-page-level/?utm_source=wp&utm_medium=readme&utm_campaign=ht)
 
-= 📈 Analytics =
+== 📈 Analytics ==
 
 Creates an Event when the user clicks on the WhatsApp Icon/button.
 
@@ -115,15 +144,41 @@ Creates an Event when the user clicks on the WhatsApp Icon/button.
 
 [Google Ads Conversations](https://holithemes.com/plugins/click-to-chat/google-ads-conversion/?utm_source=wp&utm_medium=readme&utm_campaign=ht)
 
-= Webhooks =
+== Webhooks ==
 
-Connect other applications using Integarate, Automation tools like Zapier, IFTTT
+Connect other applications using Integarate, Automation tools like Zapier, IFTTT, Pipedream
 
 [Webhooks](https://holithemes.com/plugins/click-to-chat/webhooks)
 
-= 🔆 Localization =
+== 🔆 PRO ==
 
-Click to Chat is Compatible with [WPML](https://wpml.org/), Polylang.
+* Random Numbers
+* Business hours: Offline/Online Settings
+    * Change WhatsApp number When Offline
+    * Change call to Action When Offline
+    or 
+    * Hide When Offline
+    * Show/Hide in selected time range in a day
+    * Show/Hide on selected days in a week
+* Webhooks - Dynamic variables
+    * {url} - replace with current page url
+    * {time} - time the user interacted with WhatsApp Button/Icon
+    * {number} - WhatsApp Number for that icon/button
+* Position to place
+    * Fixed: fixed position to the scren (default, available in Free version)
+    * Absolute: Fixed position to the body content. (Moves when user scrolls the page)
+* Time Dealy - Display after some time dealy
+* Scroll Action - Display after user scroll the page of given percentage
+* Display based on Website visitors login status
+* Page level settings - Change styles, time, scroll delay.
+* WooCommerce
+    * Mulitple position to add WhatsApp in product pages.
+
+[PRO](https://holithemes.com/plugins/click-to-chat/pricing/)
+
+== 🎯 Localization ==
+
+Click to Chat is Compatible with translate plugins. [WPML](https://wpml.org/), Polylang.
 
 Easy to setup different values for each language   
 
@@ -135,13 +190,13 @@ Easy to setup different values for each language
 
 Setup for [WPML](https://holithemes.com/plugins/click-to-chat/translate-click-to-chat-settings-using-wpml-plugin/?utm_source=wp&utm_medium=readme&utm_campaign=ht), [Polylang](https://holithemes.com/plugins/click-to-chat/translate-click-to-chat-settings-using-polylang-plugin/?utm_source=wp&utm_medium=readme&utm_campaign=ht)
 
-= 🚀 Performance =
+== 🚀 Performance ==
 
 * Rich in features but the frontend of the site content is very light weight. 
 
 We highly concentrate on speed, performance.
 
-= 👓 Display Settings = 
+== 👓 Display Settings == 
 
 Show/Hide styles based on 
 * Post type
@@ -150,13 +205,20 @@ Show/Hide styles based on
 * Device Type(Mobile, Desktop)
 * WooCommerce single product pages
 
-= ⛳ Shortcodes =
+PRO:
+* Time delay
+* Scroll delay
+* Selected Days in a week
+* Selected time range in a day
+* Website visitor login status
+
+== ⛳ Shortcodes ==
 
 Use shortcodes to add the icon/button with inline the Posts content, widgets.
 
 change the default setting values using shortcode attributes - WhatsApp Number, Style, Prefilled message, Call to Action.
 
-== Chat Shortcodes ==
+= Chat Shortcodes =
 
 [ht-ctc-chat]
 
@@ -166,8 +228,7 @@ To change the WhatsApp number use 'number' attribute
 
 [Shortcodes for Chat](https://holithemes.com/plugins/click-to-chat/shortcodes-chat/?utm_source=wp&utm_medium=readme&utm_campaign=ht)
 
-
-== Group ==
+= Group =
 
 Enable Group chat feature and add WhatsApp Group id in the plugin setting page.
 
@@ -175,7 +236,7 @@ Make it easy for your customers to join your Whatsapp Group.
 
 [Group](https://holithemes.com/plugins/click-to-chat/group-chat-feature/?utm_source=wp&utm_medium=readme&utm_campaign=ht)
 
-== Share ==
+= Share =
 
 Let users share your website with their WhatsApp contacts and get more leads.
 
@@ -185,32 +246,24 @@ Let users share your website with their WhatsApp contacts and get more leads.
 
 Help by [Translating the plugin](https://translate.wordpress.org/projects/wp-plugins/click-to-chat-for-whatsapp/) to available in more languages  
 
-== 🔯 Addons ==
-
-= Reverse position for RTL Pages =
-
-Reverse position for RTL pages, if left then right, if right then left.  
-i.e. if position is set to right: 10px then plugin will display at left: 10px   
-
-[Reverse position for RTL Pages](https://github.com/holithemes/click-to-chat-addon-rtl)
 
 == screenshots ==
 
 1. 8 Styles, 1 Add own image / GIF Style
 1. Chat Settings - Enter WhatsApp Number, prefilled message, call to action, desktop: web view / desktop app view
-1. Desktop settings - style, position to place (at any position of the screen)
-1. Mobile settings - style, position to place (at any position of the screen)
+1. Style, position to place (at any position of the screen) - Desktop, Mobile
+1. Add WhatsApp Menu item (Custom Element)
 1. Change Values at page level: 'WhatsApp Number', 'Call to action', 'Group ID'
 1. Shortcodes - add style with inline the content
 1. Style - 5 - Image with content box
 1. Style - 8 - Materialize button
 1. Style - 99 - Add your own Image / GIF(Animated Image)
 1. Customize Styles
-1. Enable Chat, Group, Share Settings
+1. Enable Group, Share Settings
 1. Group settings page
 1. Share settings page
-1. Hide on Selected pages
-1. Show on Selected pages
+1. Display settings
+1. Webhooks
 1. prefilled, call to action for WooCommerce single product pages
 1. Animations
 1. Analytics - Google analytics, Facebook Pixel, Google Ads Conversations
@@ -274,7 +327,7 @@ E.g.
     I like to buy this {product}, {url}
 
 
-With this prefilled text, we can know from which page the user started the conversation, regarding which they contacted us, and their details
+With this prefilled text, we can know from which page the user started the conversation, purpose of the contact, and their details
 
 = Call to Action =
 
@@ -398,7 +451,7 @@ For any issues with the plugin / suggestions:
 
 * WordPress [new topic](https://wordpress.org/support/plugin/click-to-chat-for-whatsapp/) 
 
-* GitHub [Discussions](https://github.com/holithemes/ctc/discussions)  
+* HoliThemes - Click to Chat [Support Forum](https://holithemes.com/support/forum/click-to-chat/) 
 
 = ⭐️ Give Support =
 
@@ -424,6 +477,66 @@ plugin will update automatically when new version is released
 After Activate the plugin, add WhatsApp Number at plugin settings.
 
 == Changelog ==
+
+= 3.6 =
+* Enchantment: settings pages
+
+= 3.5.3 = 
+* New: Display settings for WooCommerce Thank you page
+* Fix: Display based on Category settings not found issue
+
+= 3.5.2 = 
+* New: z-Index settings
+* Enchantment: Admin settings.
+
+= 3.5.1 =
+* Fix: Customize styles settings not saving
+
+= 3.5 =
+* New: Add Styles at WooCommerce Shop page. (Products Archive)
+* Enchantment: Style-7 font size settings.
+* Enchantment: Custom Element (convert any element to navigate to WhatsApp Chat)
+
+= 3.4 =
+* New: Add Styles with in WooCommerce Product pages
+
+= 3.3.11 =
+* Fix: Dynamic Variables on archive pages getting the last value.
+* Enchantment: Add own image Style
+
+= 3.3.10 =
+* Enchantment: Number field, added helper text
+* Enchantment: Position Type 
+
+= 3.3.9 =
+* Introducing PRO Version
+* Enchantment: variable for prefilled, call to action for WooCommerce pages at page level settings
+
+= 3.3.8 =
+* Fix: syntax error while updating the plugin.
+
+= 3.3.7 =
+* Enchantment: Webhook feature
+* Fix: admin menu icon issue
+
+= 3.3.6 =
+* Enchantment: Customize styles settings
+
+= 3.3.5 =
+* New: aria-hidden attribute settings for Accessibility API
+* Enchantment: Call to Action, Pre-filled Message (supports emojis)
+* Enchantment: User Interface
+* Show effect is now called as Entery effects
+
+= 3.3.4 =
+* Display Settings for WooCommerce Cart, Checkout, Account, Shop page
+* Enchantment: WhatsApp Number field
+
+= 3.3.3 =
+* User Interface: Display settings
+* New: Display settings for custom post types
+* User Interface: same_settings for mobile, desktop
+* User Interface: WooCommerce related settings now in seperate page
 
 = 3.3.2 =
 * Enchantment: Google Analytics

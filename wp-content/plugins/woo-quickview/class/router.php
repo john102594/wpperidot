@@ -38,7 +38,7 @@ class SP_WQV_Router {
 	 * Include the required files
 	 *
 	 * @since 1.0
-	 * 
+	 *
 	 * @return void
 	 */
 	function includes() {
@@ -64,7 +64,10 @@ class SP_WQV_Router {
 	 * @return void
 	 */
 	function sp_wqv_framework() {
-		include_once SP_WQV_PATH . 'admin/views/framework/sp-framework.php';
+		// include_once SP_WQV_PATH . 'admin/views/framework/sp-framework.php';
+
+		// include_once SP_WQV_PATH . 'admin/views/framework/sp-framework-path.php';
+		include_once SP_WQV_PATH . 'admin/views/sp-framework/classes/setup.class.php';
 	}
 
 }

@@ -61,6 +61,6 @@ class HT_CTC_Scripts {
 
 $ht_ctc_scripts =  new HT_CTC_Scripts();
 
-add_action('wp_enqueue_scripts', array( $ht_ctc_scripts, 'register_scripts' ) );
+add_action('wp_enqueue_scripts', array( $ht_ctc_scripts, 'register_scripts' ), 1 );
 
 endif; // END class_exists check

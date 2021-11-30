@@ -24,14 +24,6 @@ class HT_CTC_Group {
 
         // If db values are not correct
 		if ( !is_array($options)  || !isset($options['group_id']) ) {
-
-            // in debug mode
-            if ( isset($othersettings['debug_mode']) ) {
-            ?>
-            <script>console.log('please check plugin settings and save changes')</script>
-            <?php
-            }
-            
             return;
         }
 
@@ -49,8 +41,12 @@ class HT_CTC_Group {
         $is_mobile = ht_ctc()->device_type->is_mobile();
 
         // style
-        $ht_ctc_group['style_desktop'] = esc_attr( $options['style_desktop'] );
-        $ht_ctc_group['style_mobile'] = esc_attr( $options['style_mobile'] );
+        $ht_ctc_group['style_desktop'] = (isset($options['style_desktop'])) ? esc_attr($options['style_desktop']) : '2';
+        if (isset($options['same_settings'])) {
+            $ht_ctc_group['style_mobile'] = $ht_ctc_group['style_desktop'];
+        } else {
+            $ht_ctc_group['style_mobile'] = (isset($options['style_mobile'])) ? esc_attr($options['style_mobile']) : '2';
+        }
 
         // position
         include HT_CTC_PLUGIN_DIR .'new/inc/commons/position-to-place.php';
@@ -74,8 +70,8 @@ class HT_CTC_Group {
         $ht_ctc_group['group_id'] = apply_filters( 'wpml_translate_single_string', $ht_ctc_group['group_id'], 'Click to Chat for WhatsApp', 'group_id__group' );
 
 
-        $ht_ctc_group['display_mobile'] = (isset($options['hideon_mobile'])) ? 'hide' : 'show';
-        $ht_ctc_group['display_desktop'] = (isset($options['hideon_desktop'])) ? 'hide' : 'show';
+        $ht_ctc_group['display_mobile'] = (isset($options['display_mobile'])) ? esc_attr($options['display_mobile']) : 'show';
+        $ht_ctc_group['display_desktop'] = (isset($options['display_desktop'])) ? esc_attr($options['display_desktop']) : 'show';
 
 
 
@@ -88,6 +84,7 @@ class HT_CTC_Group {
         $ht_ctc_os['data-attributes'] = '';
         // show effect
         $ht_ctc_os['show_effect'] = '';
+        $ht_ctc_os['class_names'] = '';
 
         // hooks
         $ht_ctc_group = apply_filters( 'ht_ctc_fh_group', $ht_ctc_group );
@@ -106,7 +103,9 @@ class HT_CTC_Group {
         $style_mobile = $ht_ctc_group['style_mobile'];
         $call_to_action = $ht_ctc_group['call_to_action'];
         
-        $ht_ctc_group['class_names'] .= " style-$style ";
+        $other_classes = $ht_ctc_os['class_names'];
+
+        $ht_ctc_group['class_names'] .= " style-$style $other_classes";
 
         if ( '' == $call_to_action ) {
             if ( '1' == $style || '4' == $style || '6' == $style || '8' == $style ) {
@@ -140,7 +139,7 @@ class HT_CTC_Group {
                 <?= $ht_ctc_os['data-attributes'] ?>  
                 >
                 <?php 
-                if ( isset( $othersettings['select_styles_issue'] ) ) {
+                if ( isset( $options['select_styles_issue'] ) ) {
                     ?>
                     <div class="ht_ctc_desktop_group"><?php include $path_d; ?></div>
                     <div class="ht_ctc_mobile_group"><?php include $path_m; ?></div>

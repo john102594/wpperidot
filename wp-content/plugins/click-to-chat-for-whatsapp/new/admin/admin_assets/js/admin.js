@@ -1,4 +1,4 @@
-// Click to Chat v3.2.9
+// Click to Chat
 document.addEventListener('DOMContentLoaded', function () {
 
     // M.AutoInit();
@@ -28,33 +28,71 @@ document.addEventListener('DOMContentLoaded', function () {
         $('.tooltipped').tooltip();
         $('.ht-ctc-color').wpColorPicker();
 
+        // var toast = false;
+        // if (typeof M !== "undefined" && M.toast) {
+        //     toast = true;
+        // }
+
+        // if (toast) {
+        //     M.toast({ html: 'Hided on Mobile devices', classes: 'rounded' });
+        // }
+
         // show/hide settings
-        function ht_ctc_show_hide_options() {
+        function show_hide_options() {
 
             // default display
-            var val = $('.select_show_or_hide').find(":selected").val();
+            var val = $('.global_display:checked').val();
+
             if (val == 'show') {
-                $(".showbased").show();
+                $('.global_show_or_hide_icon').addClass('dashicons dashicons-visibility');
+                $(".hide_settings").show();
+                $(".show_hide_types .show_btn").attr('disabled', 'disabled');
+                $(".show_hide_types .show_box").hide();
             } else if (val == 'hide') {
-                $(".hidebased").show();
+                $('.global_show_or_hide_icon').addClass('dashicons dashicons-hidden');
+                $(".show_settings").show();
+                $(".show_hide_types .hide_btn").attr('disabled', 'disabled');
+                $(".show_hide_types .hide_box").hide();
             }
+            $('.global_show_or_hide_label').html('(' + val + ')');
 
             // on change
-            $(".select_show_or_hide").on("change", function (e) {
+            $(".global_display").on("change", function (e) {
 
                 var change_val = e.target.value;
-                $(".showbased").hide();
-                $(".hidebased").hide();
+                var add_class = '';
+                var remove_class = '';
+
+                $(".hide_settings").hide();
+                $(".show_settings").hide();
+                $(".show_hide_types .show_btn").removeAttr('disabled');
+                $(".show_hide_types .hide_btn").removeAttr('disabled');
+                $(".show_hide_types .show_box").hide();
+                $(".show_hide_types .hide_box").hide();
 
                 if (change_val == 'show') {
-                    $(".showbased").show(500);
+                    add_class = 'dashicons dashicons-visibility';
+                    remove_class = 'dashicons-hidden';
+                    $(".hide_settings").show(500);
+                    $(".show_hide_types .show_btn").attr('disabled', 'disabled');
+                    $(".show_hide_types .hide_box").show();
                 } else if (change_val == 'hide') {
-                    $(".hidebased").show(500);
+                    add_class = 'dashicons dashicons-hidden';
+                    remove_class = 'dashicons-visibility';
+                    $(".show_settings").show(500);
+                    $(".show_hide_types .hide_btn").attr('disabled', 'disabled');
+                    $(".show_hide_types .show_box").show();
                 }
+                $('.global_show_or_hide_label').html('(' + change_val + ')');
+                $('.global_show_or_hide_icon').removeClass(remove_class);
+                $('.global_show_or_hide_icon').addClass(add_class);
+
             });
 
         }
-        ht_ctc_show_hide_options();
+        show_hide_options();
+
+
 
         // call to action
         var cta_styles = ['.ht_ctc_s2', '.ht_ctc_s3', '.ht_ctc_s3_1', '.ht_ctc_s7'];
@@ -107,33 +145,29 @@ document.addEventListener('DOMContentLoaded', function () {
             $(".customize_styles_link").animate({ fontSize: '1.2em' }, "slow");
         });
 
-        // Deskop, Mobile
-        if ($('#hideon_desktop').is(':checked')) {
-            $(".ht_ctc_admin_desktop").hide();
-        }
+        // Deskop, Mobile - same settings
+        function desktop_mobile() {
 
-        if ($('#hideon_mobile').is(':checked')) {
-            $(".ht_ctc_admin_mobile").hide();
-        }
-
-        $(".hidebasedondevice").on("change", function (e) {
-            if ($('#hideon_desktop').is(':checked')) {
-                $(".ht_ctc_admin_desktop").hide();
+            // same setting
+            if ($('.same_settings').is(':checked')) {
+                $(".not_samesettings").hide();
             } else {
-                $(".ht_ctc_admin_desktop").show();
+                $(".not_samesettings").show();
             }
 
-            if ($('#hideon_mobile').is(':checked')) {
-                $(".ht_ctc_admin_mobile").hide();
-            } else {
-                $(".ht_ctc_admin_mobile").show();
-            }
-        });
+            $(".same_settings").on("change", function (e) {
 
-        // hide nothing or hide only on one device.
-        $(document).on('click', '.hidebasedondevice', function () {
-            $('.hidebasedondevice').not(this).prop('checked', false);
-        });
+                if ($('.same_settings').is(':checked')) {
+                    $(".not_samesettings").hide(900);
+                    $(".select_styles_issue_checkbox").hide();
+                } else {
+                    $(".not_samesettings").show(900);
+                }
+
+            });
+
+        }
+        desktop_mobile()
 
         // WhatsApp number  
         function wn() {
@@ -149,6 +183,12 @@ document.addEventListener('DOMContentLoaded', function () {
             $("#whatsapp_number").on("change paste keyup", function (e) {
                 num = $("#whatsapp_number").val();
                 call();
+
+                if (num && 0 == num.charAt(0)) {
+                    $('.ctc_wn_initial_zero').show(500);
+                } else {
+                    $('.ctc_wn_initial_zero').hide(500);
+                }
             });
 
             function call() {
@@ -158,6 +198,58 @@ document.addEventListener('DOMContentLoaded', function () {
 
         }
         wn();
+
+        // woo page..
+        function woo_page() {
+
+            //  Woo single product page - woo position
+            var val = $('.woo_single_position_select').find(":selected").val();
+
+            if (val && '' !== val && 'select' !== val) {
+                $('.woo_single_position_settings').show();
+            }
+
+            // on change
+            $('.woo_single_position_select').on("change", function (e) {
+                var change_val = e.target.value;
+
+                if (change_val == 'select') {
+                    $('.woo_single_position_settings').hide(200);
+                } else {
+                    $('.woo_single_position_settings').show(200);
+                }
+            });
+
+            if ($('#woo_single_position_center').is(':checked')) {
+                $(".woo_single_position_center_checked_content").show();
+            }
+
+            $("#woo_single_position_center").on("change", function (e) {
+                if ($('#woo_single_position_center').is(':checked')) {
+                    $(".woo_single_position_center_checked_content").show(200);
+                } else {
+                    $(".woo_single_position_center_checked_content").hide(100);
+                }
+            });
+
+
+
+            // woo shop page .. 
+            if ($('#woo_shop_add_whatsapp').is(':checked')) {
+                $(".woo_shop_add_whatsapp_settings").show();
+            }
+
+            $("#woo_shop_add_whatsapp").on("change", function (e) {
+                if ($('#woo_shop_add_whatsapp').is(':checked')) {
+                    $(".woo_shop_add_whatsapp_settings").show(200);
+                } else {
+                    $(".woo_shop_add_whatsapp_settings").hide(100);
+                }
+            });
+
+
+        }
+        woo_page();
 
         // webhook
         function hook() {
@@ -203,7 +295,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // analytics - ga4 display only if ga is enabled.
             $("#google_analytics").on("change", function (e) {
-                console.log('change worked');
                 if ($('#google_analytics').is(':checked')) {
                     $(".ctc_ga4").show();
                 } else {
@@ -217,8 +308,133 @@ document.addEventListener('DOMContentLoaded', function () {
                 $(".ctc_ga4").hide();
             }
 
+            // select styles issue
+
+            if ($('#select_styles_issue').is(':checked')) {
+                $(".select_styles_issue_checkbox").show();
+            }
+            $('.select_styles_issue_description').on('click', function (e) {
+                $('.select_styles_issue_checkbox').toggle(500);
+            });
+
+
+            // s3e - shadow on hover
+            if (!$('#s3_box_shadow').is(':checked')) {
+                $(".s3_box_shadow_hover").show();
+            }
+
+            $('#s3_box_shadow').on('change', function (e) {
+                if ($('#s3_box_shadow').is(':checked')) {
+                    $(".s3_box_shadow_hover").hide(400);
+                } else {
+                    $(".s3_box_shadow_hover").show(500);
+                }
+            });
+
         }
         other();
+
+        // collapsible..
+        function collapsible() {
+
+            var ht_ctc_admin = {};
+
+            if (localStorage.getItem('ht_ctc_admin')) {
+                ht_ctc_admin = localStorage.getItem('ht_ctc_admin');
+                ht_ctc_admin = JSON.parse(ht_ctc_admin);
+            }
+            // else {
+            //     ht_ctc_admin = demo;
+            //     demo = JSON.stringify(demo);
+            //     localStorage.setItem('ht_ctc_admin', demo);
+            // }
+
+            // get items from ht_ctc_admin
+            function ctc_getItem(item) {
+                if (ht_ctc_admin[item]) {
+                    return ht_ctc_admin[item];
+                } else {
+                    return false;
+                }
+            }
+
+            // set items to ht_ctc_admin storage
+            function ctc_setItem(name, value) {
+                ht_ctc_admin[name] = value;
+                var newValues = JSON.stringify(ht_ctc_admin);
+                localStorage.setItem('ht_ctc_admin', newValues);
+            }
+
+            /**
+             * ht_ctc_sidebar_contat - not added, as it may cause view distraction..
+             */
+            var styles_list = [
+                'ht_ctc_s1',
+                'ht_ctc_s2',
+                'ht_ctc_s3',
+                'ht_ctc_s3_1',
+                'ht_ctc_s4',
+                'ht_ctc_s5',
+                'ht_ctc_s6',
+                'ht_ctc_s7',
+                'ht_ctc_s7_1',
+                'ht_ctc_s8',
+                'ht_ctc_s99',
+                'ht_ctc_webhooks',
+                'ht_ctc_analytics',
+                'ht_ctc_animations',
+                'ht_ctc_other_settings',
+                'ht_ctc_enable_share_group',
+                'ht_ctc_debug',
+                'ht_ctc_device_settings',
+                'ht_ctc_show_hide_settings',
+                'ht_ctc_woo_1',
+                'ht_ctc_woo_shop',
+                'ht_ctc_woo_cart',
+                'ht_ctc_woo_checkout',
+                'ht_ctc_woo_myaccount',
+            ];
+
+            var default_active = [
+                'ht_ctc_device_settings',
+                'ht_ctc_show_hide_settings',
+                'ht_ctc_woo_1',
+                'ht_ctc_webhooks',
+                'ht_ctc_analytics',
+                'ht_ctc_animations',
+                'ht_ctc_other_settings',
+            ];
+
+
+            styles_list.forEach(e => {
+
+                // one known issue.. is already active its not working as expected. 
+                var is_col = (ctc_getItem('col_' + e)) ? ctc_getItem('col_' + e) : '';
+                if ('open' == is_col) {
+                    $('.' + e + ' li').addClass('active');
+                } else if ('close' == is_col) {
+                    $('.' + e + ' li').removeClass('active');
+                } else if (default_active.includes(e)) {
+                    // if not changed then for default_active list add active..
+                    $('.' + e + ' li').addClass('active');
+                }
+
+
+                $('.' + e).collapsible({
+                    onOpenEnd() {
+                        ctc_setItem('col_' + e, 'open');
+                    },
+                    onCloseEnd() {
+                        ctc_setItem('col_' + e, 'close');
+                    }
+                });
+
+            });
+
+        }
+        try {
+            collapsible();
+        } catch (e) { }
 
     });
 

@@ -52,6 +52,11 @@ if ( function_exists('is_rtl') && is_rtl() ) {
 $s8_icon_css = ( 'right' == $s8_icon_position ) ? "order:1;margin-left: 15px;" : "order:0;margin-right: 15px;";
 $s8_text_css = "color:$s8_txt_color; $s8_text_size_css ";
 $s8_main_span_css = "display: flex; $rtl_css padding: 0 2rem;letter-spacing: .5px;transition: .2s ease-out;text-align: center;justify-content: center;align-items: center;border-radius:2px;height:$s8_height;line-height:$s8_height;vertical-align:middle;box-shadow:0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);box-sizing:inherit;background-color:$s8_bg_color;";
+
+// if ( isset($calling_from) && 'woo_page' == $calling_from ) {
+//   // if its from woo pages..
+// } else {}
+
 ?>
 
 <style id="ht-ctc-s8">

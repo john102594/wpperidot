@@ -13,10 +13,11 @@ class SP_WQV_Functions {
 	 */
 	public function __construct() {
 		add_filter( 'admin_footer_text', array( $this, 'admin_footer' ), 1, 2 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
 	/**
-	 * Review Text
+	 * Review Text.
 	 *
 	 * @param $text
 	 *
@@ -30,6 +31,16 @@ class SP_WQV_Functions {
 		}
 
 		return $text;
+	}
+
+	/**
+	 * Admin enqueue scripts.
+	 *
+	 * @return void
+	 */
+	public function admin_enqueue_scripts() {
+		// Notice style.
+		wp_enqueue_style( 'woo-quick-view-notices', SP_WQV_URL . 'admin/views/notices/notices.min.css', array(), SP_WQV_VERSION, 'all' );
 	}
 
 }

@@ -1,35 +1,39 @@
 # Copyright (C) 2021 CartFlows Inc
-# This file is distributed under the same license as the WooCommerce Cart Abandonment Recovery package.
+# This file is distributed under the same license as the WooCommerce Cart Abandonment Recovery plugin.
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Cart Abandonment Recovery 1.2.12\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/woo-cart-abandonment-recovery\n"
-"POT-Creation-Date: 2021-04-28 12:40:14+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woo-cart-abandonment-recovery\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: en\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Country: United States\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: "
-"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
-"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
-"X-Poedit-Basepath: ../\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-Bookmarks: \n"
-"X-Textdomain-Support: yes\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-07-13T04:09:13+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: woo-cart-abandonment-recovery\n"
 
-#: classes/class-cartflows-ca-loader.php:143
+#. Plugin Name of the plugin
+msgid "WooCommerce Cart Abandonment Recovery"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://cartflows.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Recover your lost revenue. Capture email address of users on the checkout page and send follow up emails if they don't complete the purchase."
+msgstr ""
+
+#. Author of the plugin
+msgid "CartFlows Inc"
+msgstr ""
+
 #. translators: %s: html tags
-msgid ""
-"The %1$sWooCommerce Cart Abandonment Recovery%2$s plugin requires "
-"%1$sWooCommerce%2$s plugin installed & activated."
+#: classes/class-cartflows-ca-loader.php:143
+msgid "The %1$sWooCommerce Cart Abandonment Recovery%2$s plugin requires %1$sWooCommerce%2$s plugin installed & activated."
 msgstr ""
 
 #: classes/class-cartflows-ca-loader.php:152
@@ -49,10 +53,7 @@ msgid "Enable Tracking"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:69
-msgid ""
-"Start capturing abandoned carts. <br/><br/> <span "
-"class=\"description\"><strong>Note:</strong> Cart will be considered "
-"abandoned if order is not completed in <strong>15 minutes</strong>.</span>"
+msgid "Start capturing abandoned carts. <br/><br/> <span class=\"description\"><strong>Note:</strong> Cart will be considered abandoned if order is not completed in <strong>15 minutes</strong>.</span>"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:79
@@ -60,9 +61,7 @@ msgid "Disable Tracking For"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:83
-msgid ""
-" It will ignore selected users from abandonment process when they logged "
-"in, and hence they can not receive mail for cart abandoned by themselves."
+msgid " It will ignore selected users from abandonment process when they logged in, and hence they can not receive mail for cart abandoned by themselves."
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:93
@@ -70,9 +69,7 @@ msgid "Exclude email sending For"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:97
-msgid ""
-" It will not send future recovery emails to selected order status and will "
-"mark as recovered."
+msgid " It will not send future recovery emails to selected order status and will mark as recovered."
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:107
@@ -92,11 +89,7 @@ msgid "Delete Coupons Automatically"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:135
-msgid ""
-"Delete coupons automatically on weekly basis.<br><span "
-"class=\"description\"><br/><strong>Note:</strong> This option will set a "
-"weekly cron to delete all <strong>expired</strong> and "
-"<strong>used</strong> coupons automatically in the background.</p>"
+msgid "Delete coupons automatically on weekly basis.<br><span class=\"description\"><br/><strong>Note:</strong> This option will set a weekly cron to delete all <strong>expired</strong> and <strong>used</strong> coupons automatically in the background.</p>"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:145
@@ -104,10 +97,7 @@ msgid "Delete Coupons Manually"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:149
-msgid ""
-"<br><strong>Note:</strong> This will delete all <strong>expired</strong> "
-"and <strong>used</strong> coupons that were created by Woo Cart Abandonment "
-"Recovery.</p>"
+msgid "<br><strong>Note:</strong> This will delete all <strong>expired</strong> and <strong>used</strong> coupons that were created by Woo Cart Abandonment Recovery.</p>"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:161
@@ -143,9 +133,7 @@ msgid "Enable Webhook"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:217
-msgid ""
-"Allows you to trigger webhook automatically upon cart abandonment and "
-"recovery."
+msgid "Allows you to trigger webhook automatically upon cart abandonment and recovery."
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:222
@@ -161,9 +149,7 @@ msgid "Create Coupon Code"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:252
-msgid ""
-"Auto-create the special coupon for the abandoned cart to send over the "
-"emails."
+msgid "Auto-create the special coupon for the abandoned cart to send over the emails."
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:257
@@ -181,9 +167,7 @@ msgid "Coupon Expires After"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:279
-msgid ""
-"<br/><br/> <span class=\"description\"><strong>Note: </strong>. Enter zero "
-"(0) to restrict coupon from expiring.</span>"
+msgid "<br/><br/> <span class=\"description\"><strong>Note: </strong>. Enter zero (0) to restrict coupon from expiring.</span>"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:310
@@ -199,10 +183,7 @@ msgid "Enable GDPR Integration"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:330
-msgid ""
-"Ask confirmation from the user before tracking data. <br/><br/> <span "
-"class=\"description\"><strong>Note:</strong> By checking this, it will show "
-"up confirmation text below the email id on checkout page.</span>"
+msgid "Ask confirmation from the user before tracking data. <br/><br/> <span class=\"description\"><strong>Note:</strong> By checking this, it will show up confirmation text below the email id on checkout page.</span>"
 msgstr ""
 
 #: classes/class-cartflows-ca-settings.php:335
@@ -287,6 +268,11 @@ msgstr ""
 msgid "Time"
 msgstr ""
 
+#: modules/cart-abandonment/class-cartflows-ca-cart-abandonment.php:125
+#: modules/cart-abandonment/class-cartflows-ca-cart-abandonment.php:127
+msgid "New Customer Order - Recovered Order ID: "
+msgstr ""
+
 #: modules/cart-abandonment/class-cartflows-ca-cart-abandonment.php:211
 #: modules/cart-abandonment/class-cartflows-ca-cart-abandonment.php:1043
 msgid "This order was abandoned & subsequently recovered."
@@ -314,9 +300,7 @@ msgid "Unsubscribed"
 msgstr ""
 
 #: modules/cart-abandonment/class-cartflows-ca-cart-abandonment.php:502
-msgid ""
-"This checkout page is generated by WooCommerce Cart Abandonment Recovery "
-"plugin from test mail."
+msgid "This checkout page is generated by WooCommerce Cart Abandonment Recovery plugin from test mail."
 msgstr ""
 
 #: modules/cart-abandonment/class-cartflows-ca-cart-abandonment.php:544
@@ -341,9 +325,7 @@ msgid "User(s) unsubscribed successfully!"
 msgstr ""
 
 #: modules/cart-abandonment/class-cartflows-ca-cart-abandonment.php:1305
-msgid ""
-"Do you really want to delete the used and expired coupons created by Cart "
-"Abandonment Plugin?"
+msgid "Do you really want to delete the used and expired coupons created by Cart Abandonment Plugin?"
 msgstr ""
 
 #: modules/cart-abandonment/class-cartflows-ca-cart-abandonment.php:1306
@@ -368,6 +350,10 @@ msgstr ""
 
 #: modules/cart-abandonment/class-cartflows-ca-cart-abandonment.php:1499
 msgid "Settings"
+msgstr ""
+
+#: modules/cart-abandonment/class-cartflows-ca-cart-abandonment.php:1632
+msgid "Looks like abandonment tracking is disabled! Please enable it from  <a href="
 msgstr ""
 
 #: modules/cart-abandonment/class-cartflows-ca-cart-abandonment.php:1761
@@ -410,8 +396,8 @@ msgstr ""
 msgid "Shipping"
 msgstr ""
 
-#: modules/cart-abandonment/class-cartflows-ca-cart-abandonment.php:2180
 #. translators: %1$s: Coupons Deleted, %2$s: Deleted coupons count'.
+#: modules/cart-abandonment/class-cartflows-ca-cart-abandonment.php:2180
 msgid "%1$s: %2$d"
 msgstr ""
 
@@ -557,10 +543,7 @@ msgid "Free Shipping"
 msgstr ""
 
 #: modules/cart-abandonment/class-cartflows-ca-email-templates.php:637
-msgid ""
-"Allows you to grant free shipping. A free shipping method must be enabled "
-"in your shipping zone and be set to require \"a valid free shipping "
-"coupon\". "
+msgid "Allows you to grant free shipping. A free shipping method must be enabled in your shipping zone and be set to require \"a valid free shipping coupon\". "
 msgstr ""
 
 #: modules/cart-abandonment/class-cartflows-ca-email-templates.php:644
@@ -568,9 +551,7 @@ msgid "Individual use only"
 msgstr ""
 
 #: modules/cart-abandonment/class-cartflows-ca-email-templates.php:658
-msgid ""
-"Check this box if the coupon cannot be used in conjunction with other "
-"coupons."
+msgid "Check this box if the coupon cannot be used in conjunction with other coupons."
 msgstr ""
 
 #: modules/cart-abandonment/class-cartflows-ca-email-templates.php:665
@@ -626,9 +607,7 @@ msgid "Email Details:"
 msgstr ""
 
 #: modules/cart-abandonment/includes/admin/cartflows-ca-single-report-details.php:52
-msgid ""
-"All new activated emails will be reschedule for this abandoned order. New "
-"emails will be sent to user according to schedule time."
+msgid "All new activated emails will be reschedule for this abandoned order. New emails will be sent to user according to schedule time."
 msgstr ""
 
 #: modules/cart-abandonment/includes/admin/cartflows-ca-single-report-details.php:59
@@ -684,9 +663,7 @@ msgid "The email has been sent."
 msgstr ""
 
 #: modules/cart-abandonment/includes/admin/cartflows-ca-single-report-details.php:130
-msgid ""
-"The email has been unscheduled due to the complete order and won't be sent "
-"further."
+msgid "The email has been unscheduled due to the complete order and won't be sent further."
 msgstr ""
 
 #: modules/cart-abandonment/includes/admin/cartflows-ca-single-report-details.php:163
@@ -834,22 +811,4 @@ msgstr ""
 
 #: modules/cart-abandonment/includes/admin/cartflows-cart-abandonment-tabs.php:14
 msgid "WooCommerce Cart Abandonment Recovery  "
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Cart Abandonment Recovery"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://cartflows.com/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"Recover your lost revenue. Capture email address of users on the checkout "
-"page and send follow up emails if they don't complete the purchase."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "CartFlows Inc"
 msgstr ""

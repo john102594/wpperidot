@@ -4,7 +4,7 @@
  * Colombia places
  *
  * @author   Saul Morales Pacheco <moralespachecopablo@gmail.com>
- * @version  1.1.33
+ * @version  2.0.2
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 global $places;
@@ -224,6 +224,9 @@ $places['CO'] = array(
         "Tubara",
         "Usiacuri"
 		),
+	'BOG' => array(
+	    'Bogotá'
+    ),
 	'BOL' => array(
         "Achi",
         "Arenal",
@@ -570,7 +573,7 @@ $places['CO'] = array(
         "Tamalameque",
         "Valledupar"
 		),
-	'CHOC'  => array(
+	'CHO'  => array(
         "Acandi",
         "Alto baudo",
         "Andagoya",
@@ -647,7 +650,6 @@ $places['CO'] = array(
         "Apulo",
         "Arbelaez",
         "Bituima",
-        "Bogotá D.C",
         "Bojaca",
         "Briceño",
         "Cabrera",

@@ -17,22 +17,22 @@
 
 /* Añadir y vista previa en pantallas grandes  */
 @media (min-width: 922px){
-.woocommerce a.button, .woocommerce button.button, .woocommerce input.button{
-   position: absolute  ;
-    left: 50%;
-    transform: translate(-50%);
+.add_to_cart_button, .sp-wqv-view-button{
+    position: absolute  !important;
+    left: calc(50% - 7em) !important;
+		top: calc(50% - 1em);
    
-}
-.add_to_cart_button{
-    visibility: hidden;
-    top: calc(40% - 2em);
-    width: 16em;
+		visibility: hidden;
+    width: 14em;
     max-width: 100%;
 }
-.sp-wqv-view-button{
-    visibility: hidden;
-    top: calc(40% + 1em);
-    width: 16em;
+		.sp-wqv-view-button{
+    position: absolute  !important;
+    left: calc(50% - 7em) !important;
+		top: calc(50% + 2em);
+    /* transform: translate(0%,-250px);*/
+		visibility: hidden;
+    width: 14em;
     max-width: 100%;
 }
 li:hover  .sp-wqv-view-button {

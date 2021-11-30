@@ -44,8 +44,8 @@ class SP_WQV_Shortcode {
 	/**
 	 * Quick view shortcode
 	 *
-	 * @param [type] $atts
-	 * @return void
+	 * @param array $atts attribute.
+	 * @return statement
 	 */
 	public function wqv_shortcode( $atts ) {
 		$atts = shortcode_atts( array(
@@ -61,12 +61,12 @@ class SP_WQV_Shortcode {
 			}
 		}
 
-		$close_button            = sp_wqv_get_option( 'wqv_popup_close_button' );
-		$quick_view_button_text  = sp_wqv_get_option( 'wqv_quick_view_button_text' );
+		$close_button            = sp_wqv_get_option( 'wqvpro_popup_close_button' );
+		$quick_view_button_text  = sp_wqv_get_option( 'wqvpro_quick_view_button_text' );
 
 		$outline = '';
 		if ( $atts['id'] ) {
-			$outline .= '<a href="#" id="sp-wqv-view-button" class="button sp-wqv-view-button" data-id="' . esc_attr( $atts['id'] ) . '" data-effect="' . sp_wqv_get_option( 'wqv_popup_effect' ) . '" data-wqv=\'{"close_button": "' . $close_button . '" } \'>' . $quick_view_button_text . '</a>';
+			$outline .= '<a href="#" id="sp-wqv-view-button" class="button sp-wqv-view-button" data-id="' . esc_attr( $atts['id'] ) . '" data-effect="' . sp_wqv_get_option( 'wqvpro_popup_effect' ) . '" data-wqv=\'{"close_button": "' . $close_button . '" } \'>' . $quick_view_button_text . '</a>';
 		}
 		return $outline;
 	}

@@ -29,17 +29,20 @@ jQuery(document).ready(function (jQuery) {
             items: wqv_products,
             type: 'ajax',
             mainClass: 'mfp-wqv',
+            preloader: data_wqv.preloader,
+            tLoading: data_wqv.preloader_label,
             autoFocusLast: false,
             ajax: {
                 settings: {
                     type: 'GET',
                     data: {
-                        action: 'wqv_popup_content'
+                        action: 'wqv_popup_content',
+                        _ajax_nonce: wqv_vars.nonce,
                     }
                 }
             },
             showCloseBtn: data_wqv.close_button,
-            closeMarkup: '<button title="%title%" type="button" class="mfp-close wqvicon-cancel"></button>',
+            closeMarkup: '<button title="%title%" type="button" class="mfp-close icon-4"></button>',
             removalDelay: 160, //delay removal by X to allow out-animation
             callbacks: {
                 beforeOpen: function() {
@@ -57,7 +60,16 @@ jQuery(document).ready(function (jQuery) {
                             jQuery(this).wc_variation_form();
                         });
                     }
-
+                    if( data_wqv.lightbox ) {
+                        jQuery('[data-fancybox="wqvpro-gallery"]').fancybox({
+                            baseClass: ' wqvp-fancybox-wrapper',
+                            infobar: false,
+                            buttons: [
+                                "zoom",
+                                "close"
+                            ],
+                        });
+                    }
                     const ps = new PerfectScrollbar('.wqv-product-content', {});
                 }
             },

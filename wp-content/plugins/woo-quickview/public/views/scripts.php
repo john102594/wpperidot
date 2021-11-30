@@ -43,7 +43,8 @@ class SP_WQV_Front_Scripts {
 		// CSS Files.
 		wp_enqueue_style( 'wqv-magnific-popup', SP_WQV_URL . 'public/assets/css/magnific-popup.css', array(), SP_WQV_VERSION );
 		wp_enqueue_style( 'wqv-perfect-scrollbar', SP_WQV_URL . 'public/assets/css/perfect-scrollbar.css', array(), SP_WQV_VERSION );
-		wp_enqueue_style( 'wqv-flaticon', SP_WQV_URL . 'public/assets/css/flaticon.css', array(), SP_WQV_VERSION );
+		wp_enqueue_style( 'wqv-fontello', SP_WQV_URL . 'public/assets/css/fontello.min.css', array(), SP_WQV_VERSION );
+		wp_register_style( 'wqv-fancy-box', SP_WQV_URL . 'public/assets/css/jquery.fancybox.min.css', array(), SP_WQV_VERSION );
 		wp_enqueue_style( 'wqv-style', SP_WQV_URL . 'public/assets/css/style.css', array(), SP_WQV_VERSION );
 		wp_enqueue_style( 'wqv-custom', SP_WQV_URL . 'public/assets/css/custom.css', array(), SP_WQV_VERSION );
 
@@ -54,10 +55,28 @@ class SP_WQV_Front_Scripts {
 		wp_enqueue_script( 'wc-add-to-cart-variation' );
 		wp_enqueue_script( 'wqv-perfect-scrollbar-js', SP_WQV_URL . 'public/assets/js/perfect-scrollbar.min.js', array( 'jquery' ), SP_WQV_VERSION, true );
 		wp_enqueue_script( 'wqv-magnific-popup-js', SP_WQV_URL . 'public/assets/js/magnific-popup.min.js', array( 'jquery' ), SP_WQV_VERSION, true );
+		wp_register_script( 'wqv-facybox', SP_WQV_URL . 'public/assets/js/jquery.fancybox.min.js', array( 'jquery' ), SP_WQV_VERSION, true );
 		wp_enqueue_script( 'wqv-config-js', SP_WQV_URL . 'public/assets/js/config.js', array( 'jquery', 'wc-add-to-cart-variation' ), SP_WQV_VERSION, true );
-		wp_localize_script( 'wqv-config-js', 'wqv_vars', array(
-			'ajax_url' => admin_url( 'admin-ajax.php' ),
-		));
+		wp_localize_script(
+			'wqv-config-js',
+			'wqv_vars',
+			array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'nonce_name' ),
+			)
+		);
+		$wqv_custom_js = sp_wqv_get_option( 'wqvpro_custom_js' );
+
+		if ( ! empty( $wqv_custom_js ) ) {
+			wp_add_inline_script( 'wqv-config-js', $wqv_custom_js );
+		}
+
+		$plugin_setting = get_option( '_sp_wqv_options' );
+		$image_lightbox = isset( $plugin_setting['wqvpro_product_image_lightbox'] ) ? $plugin_setting['wqvpro_product_image_lightbox'] : false;
+		if ( $image_lightbox ) {
+			wp_enqueue_style( 'wqv-fancy-box' );
+			wp_enqueue_script( 'wqv-facybox' );
+		}
 	}
 
 }

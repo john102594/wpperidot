@@ -31,12 +31,16 @@ class HT_CTC_Share_Shortcode {
         $share_text = __( $share_text_db , 'click-to-chat-for-whatsapp' );
         $call_to_action = __( $call_to_action_db , 'click-to-chat-for-whatsapp' );
 
-        $style_desktop = esc_attr( $options['style_desktop'] );
-        $style_mobile = esc_attr( $options['style_mobile'] );
+        $style_desktop = (isset($options['style_desktop'])) ? esc_attr($options['style_desktop']) : '2';
+        if (isset($options['same_settings'])) {
+            $style_mobile = $style_desktop;
+        } else {
+            $style_mobile = (isset($options['style_mobile'])) ? esc_attr($options['style_mobile']) : '2';
+        }
 
         $is_mobile = ht_ctc()->device_type->is_mobile();
 
-        $style = $style_desktop;;
+        $style = $style_desktop;
         if ( 'yes' == $is_mobile ) {
             $style = $style_mobile;
         }
@@ -165,6 +169,7 @@ class HT_CTC_Share_Shortcode {
         $ht_ctc_os['is_fb_pixel'] = 'yes';
         $ht_ctc_os['ga_ads'] = 'no';
         $ht_ctc_os['data-attributes'] = '';
+        $ht_ctc_os['class_names'] = '';
         
         // Hooks
         $ht_ctc_os = apply_filters( 'ht_ctc_fh_os', $ht_ctc_os );
