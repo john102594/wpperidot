@@ -12,6 +12,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+
+add_action('elementor/frontend/after_register_styles',function() {
+	foreach( ['solid-900', 'solid', 'regular', 'brands' ] as $style ) {
+		wp_deregister_style( 'elementor-icons-fa-' . $style );
+	}
+}, 20 );
+
+
+function dequeue_jquery_migrate( $scripts ) {
+    if ( ! is_admin() && ! empty( $scripts->registered['jquery'] ) ) {
+        $scripts->registered['jquery']->deps = array_diff(
+            $scripts->registered['jquery']->deps,
+            [ 'jquery-migrate' ]
+        );
+    }
+}
+add_action( 'wp_default_scripts', 'dequeue_jquery_migrate' );
 /**
  * Define Constants
  */
