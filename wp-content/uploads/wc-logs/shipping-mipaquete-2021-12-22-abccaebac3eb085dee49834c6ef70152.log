@@ -1,0 +1,165 @@
+12-22-2021 @ 11:17:28 - 5aa1bc47b63d79e54e7da389  seleccionado
+12-22-2021 @ 11:17:28 - Payment gateway 'cod'<br>
+12-22-2021 @ 11:17:28 - es este el cod code
+12-22-2021 @ 11:17:28 - fuera del if code
+12-22-2021 @ 11:17:28 - Array
+(
+    [weight] => 1
+    [special_service] => 2
+    [value_collection] => 53400
+    [payment_type] => 5
+    [type] => 2
+    [origin] => 5aa1bc47b63d79e54e7da389
+    [destiny] => 5aa1bc47b63d79e54e7da389
+    [declared_value] => 17800
+    [quantity] => 1
+    [value_select] => 1
+    [delivery] => 0
+)
+
+12-22-2021 @ 11:17:29 - stdClass Object
+(
+    [status] => 200
+    [message] => Cálculo de transportadora
+    [company] => stdClass Object
+        (
+            [price] => 8814
+            [name] => TCC
+            [schedule] => 2 días habiles
+        )
+
+)
+
+12-22-2021 @ 11:26:01 - 5aa1bc47b63d79e54e7da389  seleccionado
+12-22-2021 @ 11:26:01 - Payment gateway ''<br>
+12-22-2021 @ 11:26:01 - fuera del if 
+12-22-2021 @ 11:26:01 - Array
+(
+    [weight] => 1
+    [special_service] => 0
+    [payment_type] => 1
+    [type] => 2
+    [origin] => 5aa1bc47b63d79e54e7da389
+    [destiny] => 5aa1bc47b63d79e54e7da389
+    [declared_value] => 17800
+    [quantity] => 1
+    [value_select] => 1
+    [delivery] => 0
+)
+
+12-22-2021 @ 11:26:02 - stdClass Object
+(
+    [status] => 200
+    [message] => Cálculo de transportadora
+    [company] => stdClass Object
+        (
+            [price] => 4914
+            [name] => TCC
+            [schedule] => 2 días habiles
+        )
+
+)
+
+12-22-2021 @ 11:28:18 - 5aa1bc47b63d79e54e7da39b  seleccionado
+12-22-2021 @ 11:28:18 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:28:18 - fuera del if 
+12-22-2021 @ 11:28:18 - El peso no puede ser igual a 0
+12-22-2021 @ 11:28:22 - 5aa1bc47b63d79e54e7da39b  seleccionado
+12-22-2021 @ 11:28:22 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:28:22 - fuera del if 
+12-22-2021 @ 11:28:22 - El peso no puede ser igual a 0
+12-22-2021 @ 11:28:25 - 5aa1bc47b63d79e54e7da39b  seleccionado
+12-22-2021 @ 11:28:25 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:28:25 - fuera del if 
+12-22-2021 @ 11:28:25 - El peso no puede ser igual a 0
+12-22-2021 @ 11:28:27 - 5aa1bc47b63d79e54e7da39b  seleccionado
+12-22-2021 @ 11:28:27 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:28:27 - fuera del if 
+12-22-2021 @ 11:28:27 - El peso no puede ser igual a 0
+12-22-2021 @ 11:28:34 - 5aa1bc47b63d79e54e7da39b  seleccionado
+12-22-2021 @ 11:28:34 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:28:34 - fuera del if 
+12-22-2021 @ 11:28:34 - El peso no puede ser igual a 0
+12-22-2021 @ 11:29:42 - 5aa1bc47b63d79e54e7da39b  seleccionado
+12-22-2021 @ 11:29:42 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:29:42 - fuera del if 
+12-22-2021 @ 11:29:42 - El peso no puede ser igual a 0
+12-22-2021 @ 11:30:00 - 5aa1bc47b63d79e54e7da389  seleccionado
+12-22-2021 @ 11:30:00 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:30:00 - fuera del if 
+12-22-2021 @ 11:30:00 - El peso no puede ser igual a 0
+12-22-2021 @ 11:30:25 - 5aa1bc45b63d79e54e7da303  seleccionado
+12-22-2021 @ 11:30:25 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:30:25 - fuera del if 
+12-22-2021 @ 11:30:25 - El peso no puede ser igual a 0
+12-22-2021 @ 11:30:35 - 5aa1bc45b63d79e54e7da303  seleccionado
+12-22-2021 @ 11:30:35 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:30:35 - fuera del if 
+12-22-2021 @ 11:30:35 - El peso no puede ser igual a 0
+12-22-2021 @ 11:31:07 - 5aa1bc47b63d79e54e7da39b  seleccionado
+12-22-2021 @ 11:31:07 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:31:07 - fuera del if 
+12-22-2021 @ 11:31:07 - El peso no puede ser igual a 0
+12-22-2021 @ 11:31:40 - 5aa1bc47b63d79e54e7da39b  seleccionado
+12-22-2021 @ 11:31:40 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:31:40 - fuera del if 
+12-22-2021 @ 11:31:40 - El peso no puede ser igual a 0
+12-22-2021 @ 11:31:52 - 5aa1bc47b63d79e54e7da39b  seleccionado
+12-22-2021 @ 11:31:52 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:31:52 - fuera del if 
+12-22-2021 @ 11:31:52 - El peso no puede ser igual a 0
+12-22-2021 @ 11:31:55 - 5aa1bc47b63d79e54e7da39b  seleccionado
+12-22-2021 @ 11:31:55 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:31:55 - fuera del if 
+12-22-2021 @ 11:31:55 - El peso no puede ser igual a 0
+12-22-2021 @ 11:31:59 - 5aa1bc47b63d79e54e7da39b  seleccionado
+12-22-2021 @ 11:31:59 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:31:59 - fuera del if 
+12-22-2021 @ 11:31:59 - El peso no puede ser igual a 0
+12-22-2021 @ 11:32:01 - 5aa1bc47b63d79e54e7da39b  seleccionado
+12-22-2021 @ 11:32:01 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:32:01 - fuera del if 
+12-22-2021 @ 11:32:01 - El peso no puede ser igual a 0
+12-22-2021 @ 11:32:07 - 5aa1bc47b63d79e54e7da389  seleccionado
+12-22-2021 @ 11:32:07 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:32:07 - fuera del if 
+12-22-2021 @ 11:32:07 - El peso no puede ser igual a 0
+12-22-2021 @ 11:32:38 - 5aa1bc47b63d79e54e7da389  seleccionado
+12-22-2021 @ 11:32:38 - Payment gateway 'cod'<br>
+12-22-2021 @ 11:32:38 - es este el cod code
+12-22-2021 @ 11:32:38 - fuera del if code
+12-22-2021 @ 11:32:38 - El peso no puede ser igual a 0
+12-22-2021 @ 11:33:05 - 5aa1bc47b63d79e54e7da389  seleccionado
+12-22-2021 @ 11:33:05 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:33:05 - fuera del if 
+12-22-2021 @ 11:33:05 - El peso no puede ser igual a 0
+12-22-2021 @ 11:41:08 - 5aa1bc47b63d79e54e7da389  seleccionado
+12-22-2021 @ 11:41:08 - Payment gateway 'payulatam'<br>
+12-22-2021 @ 11:41:08 - fuera del if 
+12-22-2021 @ 11:41:08 - Array
+(
+    [weight] => 1
+    [special_service] => 0
+    [payment_type] => 1
+    [type] => 2
+    [origin] => 5aa1bc47b63d79e54e7da389
+    [destiny] => 5aa1bc47b63d79e54e7da389
+    [declared_value] => 17800
+    [quantity] => 1
+    [value_select] => 1
+    [delivery] => 0
+)
+
+12-22-2021 @ 11:41:09 - stdClass Object
+(
+    [status] => 200
+    [message] => Cálculo de transportadora
+    [company] => stdClass Object
+        (
+            [price] => 4914
+            [name] => TCC
+            [schedule] => 2 días habiles
+        )
+
+)
+
